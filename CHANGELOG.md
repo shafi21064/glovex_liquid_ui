@@ -1,3 +1,9 @@
+## 1.1.1
+
+- Documentation update: expanded README coverage to explicitly include all exported widgets, navigation APIs, and responsive helpers.
+- Added missing usage snippets for key widgets (`Switch`, `Checkbox`, `Radio`, `ProfileHeader`, `StatsCard`, `Loader`, `EmptyState`, `TopBar`).
+- Improved discoverability with a complete export list section.
+
 ## 1.1.0
 
 - Added router-ready bottom nav constructor: `LiquidBottomNavScaffold.router(...)`.

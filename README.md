@@ -22,7 +22,7 @@
 
 ```yaml
 dependencies:
-  glovex_liquid_ui: ^1.1.0
+  glovex_liquid_ui: ^1.1.1
 ```
 
 ```dart
@@ -150,6 +150,40 @@ final titleStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)
 
 ## Widget Catalog
 
+### Complete Export List
+
+All package widgets/utilities included in this release:
+
+- `LiquidGlassSurface`
+- `LiquidGlassCard`
+- `LiquidGlassButton`
+- `LiquidGlassIconButton`
+- `LiquidGlassInput`
+- `LiquidGlassSearchBar`
+- `LiquidGlassDropdown<T>`
+- `LiquidGlassSwitch`
+- `LiquidGlassCheckbox`
+- `LiquidGlassRadio<T>`
+- `LiquidGlassListTile`
+- `LiquidGlassSection`
+- `LiquidGlassEmptyState`
+- `LiquidGlassProfileHeader`
+- `LiquidGlassStatsCard`
+- `LiquidGlassLoader`
+- `LiquidGlassToast`
+- `LiquidGlassModalSheet`
+- `LiquidGlassTopBar`
+- `LiquidGlassBottomNavBar`
+- `LiquidGlassBottomNavItem`
+- `LiquidBottomNavScaffold`
+- `LiquidBottomNavScaffold.router`
+- `LiquidResponsive`
+- `LiquidResponsiveBuilder`
+- `LiquidResponsiveTokens`
+- `liquidTabIndexFromLocation(...)`
+- `liquidGoToTab(...)`
+- `buildLiquidTabTransitionPage(...)`
+
 ### Foundation
 
 - `LiquidGlassSurface`: Low-level frosted surface with blur/tint/border.
@@ -215,6 +249,22 @@ LiquidGlassDropdown<String>(
 )
 ```
 
+```dart
+Row(
+  children: [
+    LiquidGlassSwitch(value: enabled, onChanged: (v) {}),
+    const SizedBox(width: 8),
+    LiquidGlassCheckbox(value: checked, onChanged: (v) {}),
+    const SizedBox(width: 8),
+    LiquidGlassRadio<String>(
+      value: 'basic',
+      groupValue: selectedPlan,
+      onChanged: (v) {},
+    ),
+  ],
+)
+```
+
 **API Quick Reference (Inputs and Controls)**
 
 | Widget | Key Props |
@@ -252,6 +302,33 @@ LiquidGlassSection(
 )
 ```
 
+```dart
+const LiquidGlassProfileHeader(
+  name: 'Alex Johnson',
+  email: 'alex@example.com',
+)
+```
+
+```dart
+const LiquidGlassStatsCard(
+  label: 'Revenue',
+  value: '\$12.4K',
+  trend: '+8.1%',
+)
+```
+
+```dart
+const LiquidGlassLoader(label: 'Loading...')
+```
+
+```dart
+LiquidGlassEmptyState(
+  title: 'No Data',
+  message: 'Start by adding your first item.',
+  action: LiquidGlassButton(label: 'Add Item', onPressed: () {}),
+)
+```
+
 **API Quick Reference (Content and Layout)**
 
 | Widget | Key Props |
@@ -278,6 +355,14 @@ await LiquidGlassModalSheet.show(
   context,
   const Text('Sheet content', style: TextStyle(color: Colors.white)),
 );
+```
+
+```dart
+const LiquidGlassTopBar(
+  title: 'Dashboard',
+  leading: Icon(CupertinoIcons.back),
+  trailing: Icon(CupertinoIcons.bell),
+)
 ```
 
 **API Quick Reference (Overlays and Navigation)**
