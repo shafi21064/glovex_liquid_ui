@@ -1,3 +1,16 @@
+## 1.1.0
+
+- Added router-ready bottom nav constructor: `LiquidBottomNavScaffold.router(...)`.
+- Reduced GoRouter shell boilerplate by supporting direct `routerChild` integration.
+- Exposed bottom nav style controls at scaffold level:
+  - `navHeight`, `navMargin`, `navActiveColor`, `navInactiveColor`
+  - `navAnimationDuration`, `navBorderRadius`, `navActivatorRadius`
+- Improved README bottom-navigation docs with clearer sections:
+  - Without Router
+  - With GoRouter (recommended for starter apps)
+- Updated GoRouter README example to use `LiquidBottomNavScaffold.router(...)`.
+- Added widget test coverage for router constructor rendering.
+
 ## 1.0.0
 
 - Added bottom navigation system:
