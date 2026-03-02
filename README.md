@@ -50,6 +50,8 @@ Recommended for best visuals:
 
 Use this when tabs are your primary app structure.
 
+### Without Router
+
 ```dart
 LiquidBottomNavScaffold(
   currentIndex: currentIndex,
@@ -67,11 +69,14 @@ LiquidBottomNavScaffold(
 )
 ```
 
+### With GoRouter (Recommended for starter apps)
+
 | Widget | Key Props |
 | --- | --- |
 | `LiquidGlassBottomNavBar` | `currentIndex`, `items`, `onTap`, `height`, `margin` |
 | `LiquidGlassBottomNavItem` | `icon`, `label`, `activeIcon` |
-| `LiquidBottomNavScaffold` | `currentIndex`, `onTap`, `items`, `children`, `preserveState`, `padding`, `background` |
+| `LiquidBottomNavScaffold` | `currentIndex`, `onTap`, `items`, `children`, `preserveState`, `padding`, `background`, nav style props |
+| `LiquidBottomNavScaffold.router` | `currentIndex`, `onTap`, `items`, `routerChild`, `padding`, `background`, nav style props |
 
 GoRouter helper functions for tab navigation:
 
@@ -83,11 +88,27 @@ GoRouter helper functions for tab navigation:
 final tabPaths = ['/home', '/profile', '/settings'];
 
 ShellRoute(
-  builder: (context, state, child) => AppMainTabShell(
-    currentIndex: liquidTabIndexFromLocation(state.matchedLocation, tabPaths),
-    onTabTap: (i) => liquidGoToTab(context: context, index: i, tabPaths: tabPaths),
-    child: child,
-  ),
+  builder: (context, state, child) {
+    final currentIndex = liquidTabIndexFromLocation(
+      state.matchedLocation,
+      tabPaths,
+    );
+
+    return LiquidBottomNavScaffold.router(
+      currentIndex: currentIndex,
+      onTap: (i) => liquidGoToTab(
+        context: context,
+        index: i,
+        tabPaths: tabPaths,
+      ),
+      items: const [
+        LiquidGlassBottomNavItem(icon: CupertinoIcons.home, label: 'Home'),
+        LiquidGlassBottomNavItem(icon: CupertinoIcons.person, label: 'Profile'),
+        LiquidGlassBottomNavItem(icon: CupertinoIcons.settings, label: 'Settings'),
+      ],
+      routerChild: child,
+    );
+  },
   routes: [
     GoRoute(
       path: '/home',
@@ -99,6 +120,8 @@ ShellRoute(
   ],
 )
 ```
+
+If you need localization or custom app-level wrappers, keep a tiny shell widget and delegate rendering to `LiquidBottomNavScaffold.router`.
 
 ## Responsive System
 

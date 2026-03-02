@@ -49,4 +49,30 @@ void main() {
     expect(find.text('Profile'), findsWidgets);
     expect(find.text('Settings'), findsOneWidget);
   });
+
+  testWidgets('LiquidBottomNavScaffold.router renders router child',
+      (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: LiquidBottomNavScaffold.router(
+          currentIndex: 0,
+          onTap: (_) {},
+          items: const [
+            LiquidGlassBottomNavItem(icon: Icons.home_outlined, label: 'Home'),
+            LiquidGlassBottomNavItem(
+              icon: Icons.person_outline,
+              label: 'Profile',
+            ),
+          ],
+          routerChild: const Center(child: Text('Router Child')),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    expect(find.text('Router Child'), findsOneWidget);
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+  });
 }
