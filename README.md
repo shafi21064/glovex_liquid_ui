@@ -22,7 +22,7 @@
 
 ```yaml
 dependencies:
-  glovex_liquid_ui: ^1.2.0
+  glovex_liquid_ui: ^1.0.0
 ```
 
 ```dart
