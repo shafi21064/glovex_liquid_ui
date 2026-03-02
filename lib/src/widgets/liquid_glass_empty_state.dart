@@ -22,9 +22,12 @@ class LiquidGlassEmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          icon ?? const Icon(Icons.inbox_outlined, color: Colors.white, size: 32),
+          icon ??
+              const Icon(Icons.inbox_outlined, color: Colors.white, size: 32),
           const SizedBox(height: 10),
-          Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          Text(title,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
           Text(
             message,

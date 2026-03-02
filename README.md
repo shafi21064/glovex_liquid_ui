@@ -1,317 +1,269 @@
 # glovex_liquid_ui
 
-`glovex_liquid_ui` is a Flutter UI kit for liquid-glass interfaces.
+`glovex_liquid_ui` is a reusable Flutter UI kit for liquid-glass style apps.
+
+## Table of Contents
+
+- [Compatibility](#compatibility)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Bottom Navigation](#bottom-navigation)
+- [Responsive System](#responsive-system)
+- [Widget Catalog](#widget-catalog)
+- [Run Example](#run-example)
+- [License](#license)
 
 ## Compatibility
 
 - Dart: `>=3.3.0 <4.0.0`
 - Flutter: `>=3.24.0`
 
-## Install
+## Installation
 
 ```yaml
 dependencies:
-  glovex_liquid_ui: ^0.1.0
+  glovex_liquid_ui: ^1.2.0
 ```
 
 ```dart
 import 'package:glovex_liquid_ui/glovex_liquid_ui.dart';
 ```
 
-## Best Results
-
-- Use a colorful/dark gradient background behind glass widgets.
-- Keep text/icon color light (`Colors.white`) for readability.
-- Use `LiquidGlassSurface` or `LiquidGlassCard` as the base container style.
-
-## Common Page Setup
+## Quick Start
 
 ```dart
-class DemoPage extends StatefulWidget {
-  const DemoPage({super.key});
-
-  @override
-  State<DemoPage> createState() => _DemoPageState();
-}
-
-class _DemoPageState extends State<DemoPage> {
-  final searchController = TextEditingController();
-  final inputController = TextEditingController();
-  bool switchValue = true;
-  bool checkboxValue = false;
-  String dropdownValue = 'One';
-  String radioValue = 'basic';
-  int navIndex = 0;
-
-  @override
-  void dispose() {
-    searchController.dispose();
-    inputController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const LiquidGlassTopBar(title: 'Demo'),
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF090F2B), Color(0xFF34204E), Color(0xFF0C2B52)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: const SizedBox.expand(),
-      ),
-    );
-  }
-}
+LiquidGlassCard(
+  child: const Text(
+    'Hello Glass UI',
+    style: TextStyle(color: Colors.white),
+  ),
+)
 ```
 
-## Widgets
+Recommended for best visuals:
 
-### 1) `LiquidGlassSurface`
-Low-level frosted glass container with blur, gradient tint, border, and shadow.
+- Use a gradient or image background behind glass widgets.
+- Prefer light text/icons (`Colors.white`) on glass surfaces.
+- Build complex layouts with `LiquidGlassCard` and `LiquidGlassSection`.
+
+## Bottom Navigation
+
+Use this when tabs are your primary app structure.
+
+```dart
+LiquidBottomNavScaffold(
+  currentIndex: currentIndex,
+  onTap: (i) => setState(() => currentIndex = i),
+  items: const [
+    LiquidGlassBottomNavItem(icon: CupertinoIcons.home, label: 'Home'),
+    LiquidGlassBottomNavItem(icon: CupertinoIcons.person, label: 'Profile'),
+    LiquidGlassBottomNavItem(icon: CupertinoIcons.settings, label: 'Settings'),
+  ],
+  children: const [
+    HomePage(),
+    ProfilePage(),
+    SettingsPage(),
+  ],
+)
+```
+
+| Widget | Key Props |
+| --- | --- |
+| `LiquidGlassBottomNavBar` | `currentIndex`, `items`, `onTap`, `height`, `margin` |
+| `LiquidGlassBottomNavItem` | `icon`, `label`, `activeIcon` |
+| `LiquidBottomNavScaffold` | `currentIndex`, `onTap`, `items`, `children`, `preserveState`, `padding`, `background` |
+
+GoRouter helper functions for tab navigation:
+
+- `liquidTabIndexFromLocation(...)`
+- `liquidGoToTab(...)`
+- `buildLiquidTabTransitionPage(...)`
+
+```dart
+final tabPaths = ['/home', '/profile', '/settings'];
+
+ShellRoute(
+  builder: (context, state, child) => AppMainTabShell(
+    currentIndex: liquidTabIndexFromLocation(state.matchedLocation, tabPaths),
+    onTabTap: (i) => liquidGoToTab(context: context, index: i, tabPaths: tabPaths),
+    child: child,
+  ),
+  routes: [
+    GoRoute(
+      path: '/home',
+      pageBuilder: (_, state) => buildLiquidTabTransitionPage(
+        state: state,
+        child: const HomePage(),
+      ),
+    ),
+  ],
+)
+```
+
+## Responsive System
+
+Built-in responsive APIs:
+
+- `context.liquidScreenType` -> `mobile`, `tablet`, `desktop`
+- `context.liquidValue(...)` -> breakpoint value selection
+- `context.liquidDouble(...)` -> resolve `LiquidAdaptiveDouble` tokens
+- `context.liquidTextScale(...)` -> adaptive text scaling
+- `TextStyle.liquidScale(context)` -> text style scaling
+- `LiquidResponsiveBuilder` -> screen-type based UI branching
+
+Centralized token files:
+
+- `lib/src/foundation/liquid_responsive_tokens.dart`
+- `lib/src/foundation/glass_tokens.dart`
+
+Example:
+
+```dart
+final gap = context.liquidValue<double>(mobile: 8, tablet: 12, desktop: 16);
+final sectionGap = context.liquidDouble(LiquidResponsiveTokens.sectionContentGap);
+final titleStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)
+    .liquidScale(context);
+```
+
+## Widget Catalog
+
+### Foundation
+
+- `LiquidGlassSurface`: Low-level frosted surface with blur/tint/border.
+- `LiquidGlassCard`: Main reusable glass container.
 
 ```dart
 LiquidGlassSurface(
   borderRadius: BorderRadius.circular(20),
   padding: const EdgeInsets.all(16),
-  blurSigma: 18,
   child: const Text('Surface', style: TextStyle(color: Colors.white)),
 )
 ```
 
-### 2) `LiquidGlassCard`
-Convenience wrapper on top of `LiquidGlassSurface`.
-
 ```dart
 LiquidGlassCard(
-  child: const Text('Card content', style: TextStyle(color: Colors.white)),
+  padding: const EdgeInsets.all(16),
+  child: const Text('Card', style: TextStyle(color: Colors.white)),
 )
 ```
 
-### 3) `LiquidGlassButton`
-Glass-style button with `primary` and `ghost` variants.
+**API Quick Reference (Foundation)**
+
+| Widget | Key Props |
+| --- | --- |
+| `LiquidGlassSurface` | `child`, `padding`, `borderRadius`, `blurSigma`, `borderColor`, `backgroundColor` |
+| `LiquidGlassCard` | `child`, `padding`, `borderRadius`, `height`, `width`, `margin`, `blur`, `shrinkWrap` |
+
+### Inputs and Controls
+
+- `LiquidGlassButton`
+- `LiquidGlassIconButton`
+- `LiquidGlassInput`
+- `LiquidGlassSearchBar`
+- `LiquidGlassDropdown<T>`
+- `LiquidGlassSwitch`
+- `LiquidGlassCheckbox`
+- `LiquidGlassRadio<T>`
 
 ```dart
 LiquidGlassButton(
   label: 'Continue',
-  leading: const Icon(CupertinoIcons.arrow_right, color: Colors.white, size: 18),
-  variant: LiquidGlassButtonVariant.primary,
+  leading: const Icon(Icons.arrow_forward, color: Colors.white, size: 18),
   onPressed: () {},
 )
 ```
-
-### 4) `LiquidGlassIconButton`
-Circular glass icon button.
-
-```dart
-LiquidGlassIconButton(
-  size: 44,
-  icon: const Icon(CupertinoIcons.heart, color: Colors.white),
-  onPressed: () {},
-)
-```
-
-### 5) `LiquidGlassInput`
-Glass text input with optional prefix/suffix.
 
 ```dart
 LiquidGlassInput(
-  controller: inputController,
+  controller: controller,
   placeholder: 'Enter email',
-  prefix: const Icon(CupertinoIcons.mail, color: Colors.white),
-  suffix: const Icon(CupertinoIcons.check_mark, color: Colors.white),
-  onSubmitted: (value) {},
+  prefix: const Icon(Icons.mail_outline, color: Colors.white),
 )
 ```
-
-### 6) `LiquidGlassSearchBar`
-Search input with search icon.  
-Note: current `onChanged` callback is triggered on submit (`onSubmitted`) in this version.
-
-```dart
-LiquidGlassSearchBar(
-  controller: searchController,
-  placeholder: 'Search products',
-  onChanged: (value) {},
-)
-```
-
-### 7) `LiquidGlassDropdown<T>`
-Glass-styled `DropdownButton`.
 
 ```dart
 LiquidGlassDropdown<String>(
-  value: dropdownValue,
+  value: selected,
   items: const [
     DropdownMenuItem(value: 'One', child: Text('One')),
     DropdownMenuItem(value: 'Two', child: Text('Two')),
   ],
-  onChanged: (value) => setState(() => dropdownValue = value ?? 'One'),
+  onChanged: (v) {},
 )
 ```
 
-### 8) `LiquidGlassSwitch`
-Wrapper over `CupertinoSwitch`.
+**API Quick Reference (Inputs and Controls)**
 
-```dart
-LiquidGlassSwitch(
-  value: switchValue,
-  onChanged: (value) => setState(() => switchValue = value),
-)
-```
+| Widget | Key Props |
+| --- | --- |
+| `LiquidGlassButton` | `label`, `leading`, `onPressed`, `variant` |
+| `LiquidGlassIconButton` | `icon`, `onPressed`, `size` |
+| `LiquidGlassInput` | `controller`, `placeholder`, `prefix`, `suffix`, `obscureText`, `onSubmitted` |
+| `LiquidGlassSearchBar` | `controller`, `placeholder`, `onChanged` |
+| `LiquidGlassDropdown<T>` | `value`, `items`, `onChanged` |
+| `LiquidGlassSwitch` | `value`, `onChanged` |
+| `LiquidGlassCheckbox` | `value`, `onChanged` |
+| `LiquidGlassRadio<T>` | `value`, `groupValue`, `onChanged` |
 
-### 9) `LiquidGlassCheckbox`
-Wrapper over `Checkbox`.
+### Content and Layout
 
-```dart
-LiquidGlassCheckbox(
-  value: checkboxValue,
-  onChanged: (value) => setState(() => checkboxValue = value ?? false),
-)
-```
-
-### 10) `LiquidGlassRadio<T>`
-Custom circular radio control.
-
-```dart
-Row(
-  children: [
-    LiquidGlassRadio<String>(
-      value: 'basic',
-      groupValue: radioValue,
-      onChanged: (value) => setState(() => radioValue = value),
-    ),
-    const SizedBox(width: 8),
-    const Text('Basic', style: TextStyle(color: Colors.white)),
-  ],
-)
-```
-
-### 11) `LiquidGlassListTile`
-Glass tile for settings/lists.
-
-```dart
-LiquidGlassListTile(
-  title: 'Notifications',
-  subtitle: 'Push and email alerts',
-  leading: const Icon(CupertinoIcons.bell, color: Colors.white),
-  trailing: LiquidGlassSwitch(
-    value: switchValue,
-    onChanged: (value) => setState(() => switchValue = value),
-  ),
-  onTap: () {},
-)
-```
-
-### 12) `LiquidGlassSection`
-Section card with title/subtitle and a list of child widgets.
+- `LiquidGlassListTile`
+- `LiquidGlassSection`
+- `LiquidGlassEmptyState`
+- `LiquidGlassProfileHeader`
+- `LiquidGlassStatsCard`
+- `LiquidGlassLoader`
 
 ```dart
 LiquidGlassSection(
-  title: 'Preferences',
-  subtitle: 'Manage your app behavior',
+  title: 'Profile',
+  subtitle: 'Welcome back',
   children: [
-    LiquidGlassListTile(title: 'Auto sync', onTap: () {}),
-    const SizedBox(height: 8),
-    LiquidGlassListTile(title: 'Theme', onTap: () {}),
+    LiquidGlassListTile(
+      title: 'Account',
+      subtitle: 'user@example.com',
+      leading: const Icon(Icons.person_outline),
+      onTap: () {},
+    ),
   ],
 )
 ```
 
-### 13) `LiquidGlassBottomNavBar`
-Glass bottom navigation wrapper around `CupertinoTabBar`.
+**API Quick Reference (Content and Layout)**
+
+| Widget | Key Props |
+| --- | --- |
+| `LiquidGlassListTile` | `title`, `subtitle`, `leading`, `trailing`, `onTap` |
+| `LiquidGlassSection` | `title`, `subtitle`, `children` |
+| `LiquidGlassEmptyState` | `title`, `message`, `icon`, `action` |
+| `LiquidGlassProfileHeader` | `name`, `email`, `avatar` |
+| `LiquidGlassStatsCard` | `label`, `value`, `trend` |
+| `LiquidGlassLoader` | `label` |
+
+### Overlays and Navigation
+
+- `LiquidGlassToast`
+- `LiquidGlassModalSheet`
+- `LiquidGlassTopBar`
 
 ```dart
-LiquidGlassBottomNavBar(
-  currentIndex: navIndex,
-  onTap: (index) => setState(() => navIndex = index),
-  items: const [
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.house), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'Profile'),
-  ],
-)
+LiquidGlassToast.show(context, 'Saved successfully');
 ```
-
-### 14) `LiquidGlassTopBar`
-Top navigation bar (`CupertinoNavigationBar`) for `CupertinoPageScaffold`.
-
-```dart
-const LiquidGlassTopBar(
-  title: 'Dashboard',
-  leading: Icon(CupertinoIcons.back),
-  trailing: Icon(CupertinoIcons.bell),
-)
-```
-
-### 15) `LiquidGlassModalSheet`
-Glass bottom sheet container and helper method.
 
 ```dart
 await LiquidGlassModalSheet.show(
   context,
-  Column(
-    mainAxisSize: MainAxisSize.min,
-    children: const [
-      Text('Quick Actions', style: TextStyle(color: Colors.white)),
-      SizedBox(height: 12),
-    ],
-  ),
+  const Text('Sheet content', style: TextStyle(color: Colors.white)),
 );
 ```
 
-### 16) `LiquidGlassToast`
-Overlay toast helper.
+**API Quick Reference (Overlays and Navigation)**
 
-```dart
-LiquidGlassToast.show(
-  context,
-  'Saved successfully',
-  duration: const Duration(seconds: 2),
-);
-```
-
-### 17) `LiquidGlassLoader`
-Glass loading indicator with optional text label.
-
-```dart
-const LiquidGlassLoader(label: 'Loading...')
-```
-
-### 18) `LiquidGlassEmptyState`
-Empty-state block with title, message, optional icon and action.
-
-```dart
-LiquidGlassEmptyState(
-  title: 'No Data',
-  message: 'Start by adding your first item.',
-  action: LiquidGlassButton(label: 'Add Item', onPressed: () {}),
-)
-```
-
-### 19) `LiquidGlassProfileHeader`
-Profile summary card with name, optional email/avatar.
-
-```dart
-const LiquidGlassProfileHeader(
-  name: 'Alex Johnson',
-  email: 'alex@example.com',
-)
-```
-
-### 20) `LiquidGlassStatsCard`
-Small metric card for dashboards.
-
-```dart
-const LiquidGlassStatsCard(
-  label: 'Revenue',
-  value: '\$12.4K',
-  trend: '+8.1%',
-)
-```
+| Widget | Key Props |
+| --- | --- |
+| `LiquidGlassToast` | `show(context, message, duration)` |
+| `LiquidGlassModalSheet` | `child`, `show(context, child)` |
+| `LiquidGlassTopBar` | `title`, `leading`, `trailing` |
 
 ## Run Example
 

@@ -4,7 +4,8 @@ class LiquidGlassTokens {
   const LiquidGlassTokens._();
 
   static const BorderRadius cardRadius = BorderRadius.all(Radius.circular(24));
-  static const BorderRadius capsuleRadius = BorderRadius.all(Radius.circular(999));
+  static const BorderRadius capsuleRadius =
+      BorderRadius.all(Radius.circular(999));
 
   static const double blur = 14;
   static const double borderWidth = 1.2;

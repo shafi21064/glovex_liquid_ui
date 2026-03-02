@@ -1,4 +1,5 @@
 import 'package:glovex_liquid_ui/glovex_liquid_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -6,5 +7,46 @@ void main() {
     expect(LiquidGlassButton, isNotNull);
     expect(LiquidGlassCard, isNotNull);
     expect(LiquidGlassSurface, isNotNull);
+  });
+
+  testWidgets('LiquidGlassSection lays out inside centered min column',
+      (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  LiquidGlassSection(
+                    title: 'Profile',
+                    subtitle: 'Welcome user',
+                    children: const [
+                      LiquidGlassListTile(
+                        title: 'Profile',
+                        subtitle: 'user@example.com',
+                        leading: Icon(Icons.person_outline),
+                      ),
+                      SizedBox(height: 8),
+                      LiquidGlassListTile(
+                        title: 'Settings',
+                        leading: Icon(Icons.settings_outlined),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    expect(find.text('Profile'), findsWidgets);
+    expect(find.text('Settings'), findsOneWidget);
   });
 }

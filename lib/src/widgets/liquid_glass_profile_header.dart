@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive.dart';
 
 class LiquidGlassProfileHeader extends StatelessWidget {
   const LiquidGlassProfileHeader({
@@ -16,6 +17,16 @@ class LiquidGlassProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nameStyle = const TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+      fontSize: 17,
+    ).liquidScale(context);
+    final emailStyle = TextStyle(
+      color: Colors.white.withValues(alpha: 0.7),
+      fontSize: 13,
+    ).liquidScale(context);
+
     return LiquidGlassCard(
       child: Row(
         children: [
@@ -25,9 +36,8 @@ class LiquidGlassProfileHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                if (email != null)
-                  Text(email!, style: TextStyle(color: Colors.white.withValues(alpha: 0.7))),
+                Text(name, style: nameStyle),
+                if (email != null) Text(email!, style: emailStyle),
               ],
             ),
           ),

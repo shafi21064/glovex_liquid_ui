@@ -24,7 +24,8 @@ class LiquidGlassSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = backgroundColor ?? Colors.white.withValues(alpha: LiquidGlassTokens.tintAlpha);
+    final bg = backgroundColor ??
+        Colors.white.withValues(alpha: LiquidGlassTokens.tintAlpha);
     final border = borderColor ?? Colors.white.withValues(alpha: 0.28);
 
     Widget content = child;
@@ -32,49 +33,41 @@ class LiquidGlassSurface extends StatelessWidget {
       content = Padding(padding: padding!, child: content);
     }
 
-    return ClipRRect(
-      borderRadius: borderRadius,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
-              child: const SizedBox.expand(),
-            ),
-          ),
-          Positioned.fill(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: borderRadius,
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withValues(alpha: LiquidGlassTokens.highlightAlpha),
-                    bg,
-                    Colors.white.withValues(alpha: 0.01),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: borderRadius,
-                border: Border.all(color: border, width: LiquidGlassTokens.borderWidth),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: LiquidGlassTokens.shadowAlpha),
-                    blurRadius: 18,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: content,
-            ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        boxShadow: [
+          BoxShadow(
+            color:
+                Colors.black.withValues(alpha: LiquidGlassTokens.shadowAlpha),
+            blurRadius: 18,
+            offset: const Offset(0, 10),
           ),
         ],
+      ),
+      child: ClipRRect(
+        borderRadius: borderRadius,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              border: Border.all(
+                  color: border, width: LiquidGlassTokens.borderWidth),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white
+                      .withValues(alpha: LiquidGlassTokens.highlightAlpha),
+                  bg,
+                  Colors.white.withValues(alpha: 0.01),
+                ],
+              ),
+            ),
+            child: content,
+          ),
+        ),
       ),
     );
   }

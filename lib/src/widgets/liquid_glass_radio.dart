@@ -30,7 +30,9 @@ class LiquidGlassRadio<T> extends StatelessWidget {
             color: Colors.white.withValues(alpha: 0.9),
             width: 1.8,
           ),
-          color: selected ? Colors.white.withValues(alpha: 0.2) : Colors.transparent,
+          color: selected
+              ? Colors.white.withValues(alpha: 0.2)
+              : Colors.transparent,
         ),
         child: selected
             ? Center(

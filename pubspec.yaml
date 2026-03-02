@@ -1,6 +1,6 @@
 name: glovex_liquid_ui
 description: A liquid-glass inspired Flutter UI kit with reusable widgets for production apps.
-version: 0.1.0
+version: 1.2.0
 repository: https://github.com/shafi21064/glovex_liquid_ui
 topics:
   - flutter
@@ -16,6 +16,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  go_router: ^17.1.0
 
 dev_dependencies:
   flutter_test:

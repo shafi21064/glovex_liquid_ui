@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'liquid_glass_surface.dart';
+import 'liquid_glass_card.dart';
 
 class LiquidGlassToast {
   static void show(
@@ -16,7 +16,7 @@ class LiquidGlassToast {
         bottom: 32,
         child: Material(
           color: Colors.transparent,
-          child: LiquidGlassSurface(
+          child: LiquidGlassCard(
             borderRadius: BorderRadius.circular(14),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Text(

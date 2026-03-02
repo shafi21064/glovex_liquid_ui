@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class LiquidGlassTopBar extends StatelessWidget implements ObstructingPreferredSizeWidget {
+class LiquidGlassTopBar extends StatelessWidget
+    implements ObstructingPreferredSizeWidget {
   const LiquidGlassTopBar({
     super.key,
     required this.title,

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'liquid_glass_surface.dart';
+import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassInput extends StatelessWidget {
   const LiquidGlassInput({
@@ -23,9 +25,20 @@ class LiquidGlassInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LiquidGlassSurface(
+    final hp =
+        context.liquidDouble(LiquidResponsiveTokens.inputPaddingHorizontal);
+    final vp =
+        context.liquidDouble(LiquidResponsiveTokens.inputPaddingVertical);
+    final textStyle =
+        const TextStyle(color: Colors.white, fontSize: 14).liquidScale(context);
+    final placeholderStyle = TextStyle(
+      color: Colors.white.withValues(alpha: 0.6),
+      fontSize: 14,
+    ).liquidScale(context);
+
+    return LiquidGlassCard(
       borderRadius: BorderRadius.circular(14),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
       child: Row(
         children: [
           if (prefix != null) ...[prefix!, const SizedBox(width: 8)],
@@ -34,8 +47,8 @@ class LiquidGlassInput extends StatelessWidget {
               controller: controller,
               placeholder: placeholder,
               obscureText: obscureText,
-              style: const TextStyle(color: Colors.white),
-              placeholderStyle: TextStyle(color: Colors.white.withValues(alpha: 0.6)),
+              style: textStyle,
+              placeholderStyle: placeholderStyle,
               decoration: null,
               cursorColor: Colors.white,
               onSubmitted: onSubmitted,

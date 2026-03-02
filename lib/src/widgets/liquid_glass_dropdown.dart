@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'liquid_glass_surface.dart';
+import 'liquid_glass_card.dart';
 
 class LiquidGlassDropdown<T> extends StatelessWidget {
   const LiquidGlassDropdown({
@@ -16,7 +16,7 @@ class LiquidGlassDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LiquidGlassSurface(
+    return LiquidGlassCard(
       borderRadius: BorderRadius.circular(14),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: DropdownButtonHideUnderline(

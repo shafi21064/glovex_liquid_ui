@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'liquid_glass_surface.dart';
+import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassListTile extends StatelessWidget {
   const LiquidGlassListTile({
@@ -21,13 +23,27 @@ class LiquidGlassListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hp =
+        context.liquidDouble(LiquidResponsiveTokens.listTilePaddingHorizontal);
+    final vp =
+        context.liquidDouble(LiquidResponsiveTokens.listTilePaddingVertical);
+    final titleStyle = const TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+    ).liquidScale(context);
+    final subtitleStyle = TextStyle(
+      color: Colors.white.withValues(alpha: 0.65),
+      fontSize: 12,
+    ).liquidScale(context);
+
     return CupertinoButton(
       padding: EdgeInsets.zero,
       minimumSize: Size.zero,
       onPressed: onTap,
-      child: LiquidGlassSurface(
+      child: LiquidGlassCard(
         borderRadius: BorderRadius.circular(14),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
         child: Row(
           children: [
             if (leading != null) ...[leading!, const SizedBox(width: 10)],
@@ -35,13 +51,14 @@ class LiquidGlassListTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-                  if (subtitle != null)
-                    Text(subtitle!, style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 12)),
+                  Text(title, style: titleStyle),
+                  if (subtitle != null) Text(subtitle!, style: subtitleStyle),
                 ],
               ),
             ),
-            trailing ?? const Icon(CupertinoIcons.chevron_right, size: 16, color: Colors.white),
+            trailing ??
+                const Icon(CupertinoIcons.chevron_right,
+                    size: 16, color: Colors.white),
           ],
         ),
       ),
