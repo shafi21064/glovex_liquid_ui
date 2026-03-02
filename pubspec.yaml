@@ -1,0 +1,25 @@
+name: glovex_liquid_ui
+description: A liquid-glass inspired Flutter UI kit with reusable widgets for production apps.
+version: 0.1.0
+homepage: https://glovency.com
+topics:
+  - flutter
+  - widgets
+  - ui
+  - glassmorphism
+  - cupertino
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.24.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:

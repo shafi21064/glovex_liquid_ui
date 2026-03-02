@@ -1,0 +1,16 @@
+name: glovex_liquid_ui_example
+description: Example app for glovex_liquid_ui
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.24.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  glovex_liquid_ui:
+    path: ../
+
+flutter:
+  uses-material-design: true
