@@ -20,7 +20,7 @@ class LiquidGlassSearchBar extends StatelessWidget {
       controller: controller,
       placeholder: placeholder,
       prefix: const Icon(CupertinoIcons.search, size: 18),
-      onSubmitted: onChanged,
+      onChanged: onChanged,
     );
   }
 }

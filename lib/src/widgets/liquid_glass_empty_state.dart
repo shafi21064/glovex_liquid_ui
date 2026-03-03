@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 
 class LiquidGlassEmptyState extends StatelessWidget {
@@ -19,6 +20,7 @@ class LiquidGlassEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LiquidGlassCard(
+      blurMode: LiquidBlurMode.real,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

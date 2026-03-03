@@ -75,4 +75,53 @@ void main() {
     expect(find.text('Home'), findsOneWidget);
     expect(find.text('Profile'), findsOneWidget);
   });
+
+  testWidgets('LiquidGlassCard uses real blur by default', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: LiquidGlassCard(
+            child: Text('Card', style: TextStyle(color: Colors.white)),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.byType(BackdropFilter), findsWidgets);
+  });
+
+  testWidgets('LiquidGlassCard fake blur mode avoids BackdropFilter',
+      (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: LiquidGlassCard(
+            blurMode: LiquidBlurMode.fake,
+            child: Text('Card', style: TextStyle(color: Colors.white)),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.byType(BackdropFilter), findsNothing);
+  });
+
+  testWidgets('LiquidGlassSection defaults to fake blur for list-friendly use',
+      (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: LiquidGlassSection(
+            title: 'Section',
+            children: [Text('Item', style: TextStyle(color: Colors.white))],
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.byType(BackdropFilter), findsNothing);
+  });
 }

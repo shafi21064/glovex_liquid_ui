@@ -3,48 +3,66 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
+
 class LiquidGlassCard extends StatelessWidget {
   const LiquidGlassCard({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(16),
-    this.borderRadius = const BorderRadius.all(Radius.circular(24)),
+    this.borderRadius,
     this.height,
     this.width,
     this.margin,
-    this.blur = 10,
+    this.enableBlur,
+    this.blurMode,
+    this.blur,
     this.shrinkWrap = false,
   });
 
   final Widget child;
   final EdgeInsetsGeometry padding;
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
   final double? height;
   final double? width;
   final EdgeInsetsGeometry? margin;
-  final double blur;
+  final bool? enableBlur;
+  final LiquidBlurMode? blurMode;
+  final double? blur;
   final bool shrinkWrap;
 
   @override
   Widget build(BuildContext context) {
-    Widget card = DecoratedBox(
+    final theme = context.liquidGlassTheme;
+    final resolvedRadius = borderRadius ?? theme.cardRadius;
+    final resolvedBlur = blur ?? theme.blurSigma;
+    final resolvedEnableBlur = enableBlur ?? theme.enableBlur;
+    final resolvedBlurMode = blurMode ?? theme.blurMode;
+    final shouldUseRealBlur = resolvedEnableBlur &&
+        resolvedBlurMode == LiquidBlurMode.real &&
+        resolvedBlur > 0;
+
+    Widget card = RepaintBoundary(
+      child: DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: borderRadius,
+        borderRadius: resolvedRadius,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 28 / 255),
+            color: theme.shadowColor.withValues(alpha: theme.shadowOpacity),
             blurRadius: 84,
             spreadRadius: 2,
             offset: const Offset(0, 36),
           ),
           BoxShadow(
-            color: Colors.black.withValues(alpha: 14 / 255),
+            color:
+                theme.shadowColor.withValues(alpha: theme.shadowOpacity * 0.5),
             blurRadius: 34,
             spreadRadius: 0,
             offset: const Offset(0, 12),
           ),
           BoxShadow(
-            color: Colors.white.withValues(alpha: 16 / 255),
+            color: theme.highlightColor
+                .withValues(alpha: theme.highlightOpacity * 0.6),
             blurRadius: 22,
             spreadRadius: -5,
             offset: const Offset(0, -2),
@@ -52,26 +70,35 @@ class LiquidGlassCard extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: borderRadius,
+        borderRadius: resolvedRadius,
         child: Stack(
           fit: StackFit.passthrough,
           children: [
-            Positioned.fill(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                child: const SizedBox.shrink(),
+            if (shouldUseRealBlur)
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: resolvedBlur,
+                    sigmaY: resolvedBlur,
+                  ),
+                  child: const SizedBox.shrink(),
+                ),
               ),
-            ),
             Container(
               padding: padding,
               decoration: BoxDecoration(
-                borderRadius: borderRadius,
+                borderRadius: resolvedRadius,
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Colors.white.withValues(alpha: 8 / 255),
-                    Colors.white.withValues(alpha: 2 / 255),
+                    theme.highlightColor
+                        .withValues(alpha: theme.highlightOpacity * 0.17),
+                    theme.tintColor.withValues(
+                      alpha: shouldUseRealBlur
+                          ? theme.tintOpacity * 0.12
+                          : theme.tintOpacity * 0.22,
+                    ),
                   ],
                 ),
               ),
@@ -81,12 +108,13 @@ class LiquidGlassCard extends StatelessWidget {
               child: IgnorePointer(
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: borderRadius,
+                    borderRadius: resolvedRadius,
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.center,
                       colors: [
-                        Colors.white.withValues(alpha: 20 / 255),
+                        theme.highlightColor
+                            .withValues(alpha: theme.highlightOpacity * 0.44),
                         Colors.transparent,
                       ],
                     ),
@@ -98,14 +126,16 @@ class LiquidGlassCard extends StatelessWidget {
               child: IgnorePointer(
                 child: CustomPaint(
                   painter: _LiquidBorderPainter(
-                    borderRadius: borderRadius,
-                    strokeWidth: 1.7,
+                    borderRadius: resolvedRadius,
+                    strokeWidth: theme.borderWidth + 0.5,
+                    borderBaseColor: theme.borderColor,
                   ),
                 ),
               ),
             ),
           ],
         ),
+      ),
       ),
     );
 
@@ -130,10 +160,12 @@ class _LiquidBorderPainter extends CustomPainter {
   const _LiquidBorderPainter({
     required this.borderRadius,
     required this.strokeWidth,
+    required this.borderBaseColor,
   });
 
   final BorderRadius borderRadius;
   final double strokeWidth;
+  final Color borderBaseColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -149,19 +181,19 @@ class _LiquidBorderPainter extends CustomPainter {
       center: Alignment.center,
       transform: GradientRotation(rotationTurns * 2 * math.pi),
       colors: [
-        Colors.white.withValues(alpha: 78 / 255),
-        Colors.white.withValues(alpha: 70 / 255),
-        Colors.white.withValues(alpha: 62 / 255),
-        Colors.white.withValues(alpha: 20 / 255),
-        Colors.white.withValues(alpha: 1 / 255),
-        Colors.white.withValues(alpha: 22 / 255),
-        Colors.white.withValues(alpha: 64 / 255),
-        Colors.white.withValues(alpha: 74 / 255),
-        Colors.white.withValues(alpha: 62 / 255),
-        Colors.white.withValues(alpha: 20 / 255),
-        Colors.white.withValues(alpha: 1 / 255),
-        Colors.white.withValues(alpha: 22 / 255),
-        Colors.white.withValues(alpha: 78 / 255),
+        borderBaseColor.withValues(alpha: 78 / 255),
+        borderBaseColor.withValues(alpha: 70 / 255),
+        borderBaseColor.withValues(alpha: 62 / 255),
+        borderBaseColor.withValues(alpha: 12 / 255),
+        borderBaseColor.withValues(alpha: 0),
+        borderBaseColor.withValues(alpha: 14 / 255),
+        borderBaseColor.withValues(alpha: 64 / 255),
+        borderBaseColor.withValues(alpha: 74 / 255),
+        borderBaseColor.withValues(alpha: 62 / 255),
+        borderBaseColor.withValues(alpha: 12 / 255),
+        borderBaseColor.withValues(alpha: 0),
+        borderBaseColor.withValues(alpha: 14 / 255),
+        borderBaseColor.withValues(alpha: 78 / 255),
       ],
       stops: const [
         0.00,
@@ -198,6 +230,7 @@ class _LiquidBorderPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _LiquidBorderPainter oldDelegate) {
     return oldDelegate.borderRadius != borderRadius ||
-        oldDelegate.strokeWidth != strokeWidth;
+        oldDelegate.strokeWidth != strokeWidth ||
+        oldDelegate.borderBaseColor != borderBaseColor;
   }
 }

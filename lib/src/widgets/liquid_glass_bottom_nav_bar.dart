@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 
 class LiquidGlassBottomNavItem {
@@ -53,6 +54,7 @@ class LiquidGlassBottomNavBar extends StatelessWidget {
       child: SizedBox(
         height: height,
         child: LiquidGlassCard(
+          blurMode: LiquidBlurMode.real,
           borderRadius: borderRadius,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
           child: LayoutBuilder(
@@ -71,6 +73,7 @@ class LiquidGlassBottomNavBar extends StatelessWidget {
                         height: constraints.maxHeight,
                         child: LiquidGlassCard(
                           borderRadius: activatorRadius,
+                          blurMode: LiquidBlurMode.fake,
                           padding: EdgeInsets.zero,
                           child: const SizedBox.expand(),
                         ),

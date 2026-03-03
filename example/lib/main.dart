@@ -87,7 +87,8 @@ class _HomeTabState extends State<_HomeTab> {
           const SizedBox(height: 12),
           LiquidGlassSearchBar(controller: _search),
           const SizedBox(height: 12),
-          const LiquidGlassProfileHeader(name: 'Kobe', email: 'kobe@example.com'),
+          const LiquidGlassProfileHeader(
+              name: 'Kobe', email: 'kobe@example.com'),
           const SizedBox(height: 12),
           LiquidGlassSection(
             title: 'Controls',
@@ -141,8 +142,10 @@ class _HomeTabState extends State<_HomeTab> {
           const SizedBox(height: 12),
           LiquidGlassButton(
             label: 'Show Toast',
-            leading: const Icon(CupertinoIcons.bell, color: Colors.white, size: 18),
-            onPressed: () => LiquidGlassToast.show(context, 'Hello from glovex_liquid_ui'),
+            leading:
+                const Icon(CupertinoIcons.bell, color: Colors.white, size: 18),
+            onPressed: () =>
+                LiquidGlassToast.show(context, 'Hello from glovex_liquid_ui'),
           ),
           const SizedBox(height: 12),
           const Center(child: LiquidGlassLoader(label: 'Loading...')),

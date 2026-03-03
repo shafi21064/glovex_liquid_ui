@@ -9,6 +9,7 @@
 - [Quick Start](#quick-start)
 - [Bottom Navigation](#bottom-navigation)
 - [Responsive System](#responsive-system)
+- [Performance Guide](#performance-guide)
 - [Widget Catalog](#widget-catalog)
 - [Run Example](#run-example)
 - [License](#license)
@@ -22,7 +23,7 @@
 
 ```yaml
 dependencies:
-  glovex_liquid_ui: ^1.1.1
+  glovex_liquid_ui: ^1.2.0
 ```
 
 ```dart
@@ -129,24 +130,88 @@ Built-in responsive APIs:
 
 - `context.liquidScreenType` -> `mobile`, `tablet`, `desktop`
 - `context.liquidValue(...)` -> breakpoint value selection
-- `context.liquidDouble(...)` -> resolve `LiquidAdaptiveDouble` tokens
 - `context.liquidTextScale(...)` -> adaptive text scaling
 - `TextStyle.liquidScale(context)` -> text style scaling
 - `LiquidResponsiveBuilder` -> screen-type based UI branching
+- `LiquidSizes` -> centralized app sizing/spacing scale (auto-updated by screen width)
 
 Centralized token files:
 
 - `lib/src/foundation/liquid_responsive_tokens.dart`
 - `lib/src/foundation/glass_tokens.dart`
+- `LiquidGlassTheme` via `ThemeData.extensions`
+
+Theming example (brand tint + light/dark overrides):
+
+```dart
+MaterialApp(
+  theme: ThemeData(
+    extensions: [
+      LiquidGlassTheme.light(brandTint: const Color(0xFF5AC8FA)),
+    ],
+  ),
+  darkTheme: ThemeData(
+    brightness: Brightness.dark,
+    extensions: [
+      LiquidGlassTheme.dark(brandTint: const Color(0xFF7DF9FF)),
+    ],
+  ),
+  home: const MyPage(),
+)
+```
 
 Example:
 
 ```dart
 final gap = context.liquidValue<double>(mobile: 8, tablet: 12, desktop: 16);
-final sectionGap = context.liquidDouble(LiquidResponsiveTokens.sectionContentGap);
+final sectionGap = LiquidSizes.sectionContentGap;
 final titleStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)
     .liquidScale(context);
 ```
+
+## Performance Guide
+
+Glass blur (`BackdropFilter`) is expensive in repeated widgets. Use blur modes strategically:
+
+- `LiquidBlurMode.real`: real backdrop blur, premium look, higher GPU cost.
+- `LiquidBlurMode.fake`: no backdrop blur, uses tint/border/highlight only, much faster.
+
+Global controls (theme):
+
+```dart
+ThemeData(
+  extensions: [
+    LiquidGlassTheme.dark(
+      brandTint: const Color(0xFF7DF9FF),
+    ).copyWith(
+      enableBlur: true,
+      blurMode: LiquidBlurMode.real,
+      blurSigma: 12,
+    ),
+  ],
+)
+```
+
+Per-widget overrides:
+
+```dart
+LiquidGlassCard(
+  blurMode: LiquidBlurMode.fake,
+  child: const Text('Fast card'),
+)
+```
+
+Recommended blur by device class:
+
+- Low-end phones: `fake` for list items, `blurSigma` around `6-8` for hero surfaces.
+- Mid-range phones: `fake` in lists, `blurSigma` around `8-12` for key cards.
+- Flagship phones/tablets: `real` for selected surfaces, keep list rows in `fake`.
+
+List usage best practices:
+
+- Prefer `LiquidGlassListTile` and `LiquidGlassSection` defaults (fake blur).
+- Keep real blur to top bars, modals, and a few focus cards.
+- Avoid stacking many blurred cards inside long `ListView`s.
 
 ## Widget Catalog
 
@@ -179,7 +244,8 @@ All package widgets/utilities included in this release:
 - `LiquidBottomNavScaffold.router`
 - `LiquidResponsive`
 - `LiquidResponsiveBuilder`
-- `LiquidResponsiveTokens`
+- `LiquidTextScaleTokens`
+- `LiquidGlassTheme`
 - `liquidTabIndexFromLocation(...)`
 - `liquidGoToTab(...)`
 - `buildLiquidTabTransitionPage(...)`
@@ -208,8 +274,8 @@ LiquidGlassCard(
 
 | Widget | Key Props |
 | --- | --- |
-| `LiquidGlassSurface` | `child`, `padding`, `borderRadius`, `blurSigma`, `borderColor`, `backgroundColor` |
-| `LiquidGlassCard` | `child`, `padding`, `borderRadius`, `height`, `width`, `margin`, `blur`, `shrinkWrap` |
+| `LiquidGlassSurface` | `child`, `padding`, `borderRadius`, `enableBlur`, `blurMode`, `blurSigma`, `borderColor`, `backgroundColor` |
+| `LiquidGlassCard` | `child`, `padding`, `borderRadius`, `height`, `width`, `margin`, `enableBlur`, `blurMode`, `blur`, `shrinkWrap` |
 
 ### Inputs and Controls
 
@@ -230,11 +296,36 @@ LiquidGlassButton(
 )
 ```
 
+Full-width button:
+
+```dart
+LiquidGlassButton(
+  label: 'Continue',
+  expanded: true,
+  onPressed: () {},
+)
+```
+
 ```dart
 LiquidGlassInput(
   controller: controller,
   placeholder: 'Enter email',
   prefix: const Icon(Icons.mail_outline, color: Colors.white),
+  keyboardType: TextInputType.emailAddress,
+  textInputAction: TextInputAction.done,
+  onChanged: (value) {},
+  onSubmitted: (value) {},
+)
+```
+
+Password input with built-in visibility toggle:
+
+```dart
+LiquidGlassInput(
+  controller: passwordController,
+  placeholder: 'Password',
+  obscureText: true,
+  showPasswordToggle: true,
 )
 ```
 
@@ -269,9 +360,9 @@ Row(
 
 | Widget | Key Props |
 | --- | --- |
-| `LiquidGlassButton` | `label`, `leading`, `onPressed`, `variant` |
+| `LiquidGlassButton` | `label`, `leading`, `onPressed`, `variant` (`primary`, `ghost`), `expanded`, `alignment` |
 | `LiquidGlassIconButton` | `icon`, `onPressed`, `size` |
-| `LiquidGlassInput` | `controller`, `placeholder`, `prefix`, `suffix`, `obscureText`, `onSubmitted` |
+| `LiquidGlassInput` | `controller`, `placeholder`, `prefix`, `suffix`, `obscureText`, `showPasswordToggle`, `keyboardType`, `textInputAction`, `onChanged`, `onSubmitted`, `onTap` |
 | `LiquidGlassSearchBar` | `controller`, `placeholder`, `onChanged` |
 | `LiquidGlassDropdown<T>` | `value`, `items`, `onChanged` |
 | `LiquidGlassSwitch` | `value`, `onChanged` |
@@ -333,8 +424,8 @@ LiquidGlassEmptyState(
 
 | Widget | Key Props |
 | --- | --- |
-| `LiquidGlassListTile` | `title`, `subtitle`, `leading`, `trailing`, `onTap` |
-| `LiquidGlassSection` | `title`, `subtitle`, `children` |
+| `LiquidGlassListTile` | `title`, `subtitle`, `leading`, `trailing`, `onTap`, `blurMode` |
+| `LiquidGlassSection` | `title`, `subtitle`, `children`, `blurMode` |
 | `LiquidGlassEmptyState` | `title`, `message`, `icon`, `action` |
 | `LiquidGlassProfileHeader` | `name`, `email`, `avatar` |
 | `LiquidGlassStatsCard` | `label`, `value`, `trend` |

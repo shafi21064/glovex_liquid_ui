@@ -1,63 +1,65 @@
-class LiquidAdaptiveDouble {
-  const LiquidAdaptiveDouble({
-    required this.mobile,
-    required this.tablet,
-    required this.desktop,
-  });
+import 'glass_tokens.dart';
 
-  final double mobile;
-  final double tablet;
-  final double desktop;
-}
-
-class LiquidResponsiveTokens {
-  const LiquidResponsiveTokens._();
+class LiquidTextScaleTokens {
+  const LiquidTextScaleTokens._();
 
   static const double textScaleMobile = 1.0;
   static const double textScaleTablet = 1.08;
   static const double textScaleDesktop = 1.15;
+}
 
-  static const LiquidAdaptiveDouble buttonPaddingHorizontal =
-      LiquidAdaptiveDouble(
-    mobile: 14,
-    tablet: 16,
-    desktop: 18,
-  );
-  static const LiquidAdaptiveDouble buttonPaddingVertical =
-      LiquidAdaptiveDouble(
-    mobile: 10,
-    tablet: 12,
-    desktop: 14,
-  );
+/// Centralized sizing constants with a global scale factor.
+abstract final class LiquidSizes {
+  static double scale = 1.0;
 
-  static const LiquidAdaptiveDouble inputPaddingHorizontal =
-      LiquidAdaptiveDouble(
-    mobile: 10,
-    tablet: 12,
-    desktop: 14,
-  );
-  static const LiquidAdaptiveDouble inputPaddingVertical = LiquidAdaptiveDouble(
-    mobile: 6,
-    tablet: 7,
-    desktop: 8,
-  );
+  static const double mobileBreakpoint = 600;
+  static const double tabletBreakpoint = 1200;
 
-  static const LiquidAdaptiveDouble listTilePaddingHorizontal =
-      LiquidAdaptiveDouble(
-    mobile: 10,
-    tablet: 12,
-    desktop: 14,
-  );
-  static const LiquidAdaptiveDouble listTilePaddingVertical =
-      LiquidAdaptiveDouble(
-    mobile: 9,
-    tablet: 10,
-    desktop: 12,
-  );
+  static void updateScale(double width) {
+    if (width < mobileBreakpoint) {
+      scale = 1.0;
+    } else if (width < tabletBreakpoint) {
+      scale = 1.2;
+    } else {
+      scale = 1.4;
+    }
+  }
 
-  static const LiquidAdaptiveDouble sectionContentGap = LiquidAdaptiveDouble(
-    mobile: 10,
-    tablet: 12,
-    desktop: 14,
-  );
+  static double get pagePadding => LiquidSpacing.lg * scale;
+  static double get formMaxWidth => 400 * scale;
+
+  static double get spacingXs => LiquidSpacing.xs * scale;
+  static double get spacingSm => LiquidSpacing.sm * scale;
+  static double get spacingMd => LiquidSpacing.md * scale;
+  static double get spacingLg => LiquidSpacing.lg * scale;
+  static double get spacingXl => LiquidSpacing.xl * scale;
+  static double get spacingXxl => LiquidSpacing.xxl * scale;
+
+  static double get iconSm => 16 * scale;
+  static double get iconMd => 24 * scale;
+  static double get iconLg => 48 * scale;
+  static double get iconXl => 64 * scale;
+
+  static double get titleSize => 24 * scale;
+  static double get bodySize => 16 * scale;
+  static double get labelSize => 14 * scale;
+  static double get smallSize => 12 * scale;
+
+  static double get loadingIndicatorSize => 20 * scale;
+  static double get loadingStrokeWidth => 2 * scale;
+
+  static double get buttonPaddingHorizontal => 14 * scale;
+  static double get buttonPaddingVertical => 10 * scale;
+
+  static double get inputPaddingHorizontal => 10 * scale;
+  static double get inputPaddingVertical => 6 * scale;
+
+  static double get listTilePaddingHorizontal => 10 * scale;
+  static double get listTilePaddingVertical => 9 * scale;
+  static double get sectionContentGap => 10 * scale;
+
+  static double get radiusSm => LiquidRadius.sm * scale;
+  static double get radiusMd => LiquidRadius.md * scale;
+  static double get radiusLg => LiquidRadius.lg * scale;
+  static double get radiusXl => LiquidRadius.xl * scale;
 }

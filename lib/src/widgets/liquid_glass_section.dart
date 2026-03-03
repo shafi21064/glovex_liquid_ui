@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
 import '../foundation/liquid_responsive_tokens.dart';
@@ -10,26 +11,29 @@ class LiquidGlassSection extends StatelessWidget {
     required this.title,
     this.subtitle,
     required this.children,
+    this.blurMode = LiquidBlurMode.fake,
   });
 
   final String title;
   final String? subtitle;
   final List<Widget> children;
+  final LiquidBlurMode blurMode;
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.liquidGlassTheme;
     final titleStyle = const TextStyle(
-      color: Colors.white,
       fontWeight: FontWeight.w700,
       fontSize: 17,
-    ).liquidScale(context);
+    ).copyWith(color: theme.highlightColor).liquidScale(context);
     final subtitleStyle = TextStyle(
-      color: Colors.white.withValues(alpha: 0.7),
+      color: theme.highlightColor.withValues(alpha: 0.7),
       fontSize: 13,
     ).liquidScale(context);
-    final gap = context.liquidDouble(LiquidResponsiveTokens.sectionContentGap);
+    final gap = LiquidSizes.sectionContentGap;
 
     return LiquidGlassCard(
+      blurMode: blurMode,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

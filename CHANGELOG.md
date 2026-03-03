@@ -1,3 +1,29 @@
+## 1.2.0
+
+- Added performance blur modes with global + per-widget controls:
+  - `LiquidBlurMode.real` (uses `BackdropFilter`)
+  - `LiquidBlurMode.fake` (no `BackdropFilter`)
+  - `enableBlur` / `blurMode` support in `LiquidGlassTheme`, `LiquidGlassSurface`, and `LiquidGlassCard`
+- Added repaint optimizations:
+  - wrapped heavy glass rendering paths in `RepaintBoundary`
+  - reduced unnecessary nested real blur in bottom-nav activator glass
+- Improved list performance defaults:
+  - `LiquidGlassListTile` defaults to `LiquidBlurMode.fake`
+  - `LiquidGlassSection` defaults to `LiquidBlurMode.fake`
+- Added `LiquidGlassTheme`-driven centralized theming across core widgets:
+  - supports light/dark presets and brand tint overrides
+  - centralizes blur, border, highlight, shadow, and radius behavior
+- Improved button variants:
+  - `primary` keeps richer glass depth
+  - `ghost` now uses flatter/faster surface style (reduced blur/shadow/highlight)
+- Expanded docs:
+  - added performance guide (`real` vs `fake`, blur recommendations by device class, list best practices)
+  - synced API tables with new blur-related parameters
+- Added tests for blur behavior and kept existing router/nav tests:
+  - real-blur default path
+  - fake-blur path without `BackdropFilter`
+  - list-friendly section default
+
 ## 1.1.1
 
 - Documentation update: expanded README coverage to explicitly include all exported widgets, navigation APIs, and responsive helpers.

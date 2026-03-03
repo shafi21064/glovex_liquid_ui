@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
 
@@ -11,17 +11,21 @@ class LiquidGlassLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelStyle =
-        const TextStyle(color: Colors.white, fontSize: 14).liquidScale(context);
+    final theme = context.liquidGlassTheme;
+    final labelStyle = TextStyle(
+      color: theme.highlightColor,
+      fontSize: 14,
+    ).liquidScale(context);
 
     return LiquidGlassCard(
+      blurMode: LiquidBlurMode.real,
       borderRadius: BorderRadius.circular(16),
       padding: const EdgeInsets.all(16),
       shrinkWrap: true,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const CupertinoActivityIndicator(color: Colors.white),
+          CupertinoActivityIndicator(color: theme.highlightColor),
           if (label != null) ...[
             const SizedBox(width: 10),
             Text(label!, style: labelStyle),

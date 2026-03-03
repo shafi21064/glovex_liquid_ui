@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
 
@@ -17,17 +18,18 @@ class LiquidGlassProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.liquidGlassTheme;
     final nameStyle = const TextStyle(
-      color: Colors.white,
       fontWeight: FontWeight.w700,
       fontSize: 17,
-    ).liquidScale(context);
+    ).copyWith(color: theme.highlightColor).liquidScale(context);
     final emailStyle = TextStyle(
-      color: Colors.white.withValues(alpha: 0.7),
+      color: theme.highlightColor.withValues(alpha: 0.7),
       fontSize: 13,
     ).liquidScale(context);
 
     return LiquidGlassCard(
+      blurMode: LiquidBlurMode.real,
       child: Row(
         children: [
           avatar ?? const CircleAvatar(radius: 26, child: Icon(Icons.person)),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
 
@@ -17,21 +18,22 @@ class LiquidGlassStatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.liquidGlassTheme;
     final labelStyle = TextStyle(
-      color: Colors.white.withValues(alpha: 0.75),
+      color: theme.highlightColor.withValues(alpha: 0.75),
       fontSize: 13,
     ).liquidScale(context);
     final valueStyle = const TextStyle(
-      color: Colors.white,
       fontSize: 24,
       fontWeight: FontWeight.w700,
-    ).liquidScale(context);
+    ).copyWith(color: theme.highlightColor).liquidScale(context);
     final trendStyle = TextStyle(
-      color: Colors.white.withValues(alpha: 0.85),
+      color: theme.highlightColor.withValues(alpha: 0.85),
       fontSize: 13,
     ).liquidScale(context);
 
     return LiquidGlassCard(
+      blurMode: LiquidBlurMode.real,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

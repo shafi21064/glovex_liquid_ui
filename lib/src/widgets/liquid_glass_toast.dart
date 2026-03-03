@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 
 class LiquidGlassToast {
@@ -17,6 +18,7 @@ class LiquidGlassToast {
         child: Material(
           color: Colors.transparent,
           child: LiquidGlassCard(
+            blurMode: LiquidBlurMode.real,
             borderRadius: BorderRadius.circular(14),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Text(

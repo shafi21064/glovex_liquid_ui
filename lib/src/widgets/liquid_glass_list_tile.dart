@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
+import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
 import '../foundation/liquid_responsive_tokens.dart';
@@ -13,6 +13,7 @@ class LiquidGlassListTile extends StatelessWidget {
     this.leading,
     this.trailing,
     this.onTap,
+    this.blurMode = LiquidBlurMode.fake,
   });
 
   final String title;
@@ -20,20 +21,19 @@ class LiquidGlassListTile extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final VoidCallback? onTap;
+  final LiquidBlurMode blurMode;
 
   @override
   Widget build(BuildContext context) {
-    final hp =
-        context.liquidDouble(LiquidResponsiveTokens.listTilePaddingHorizontal);
-    final vp =
-        context.liquidDouble(LiquidResponsiveTokens.listTilePaddingVertical);
+    final theme = context.liquidGlassTheme;
+    final hp = LiquidSizes.listTilePaddingHorizontal;
+    final vp = LiquidSizes.listTilePaddingVertical;
     final titleStyle = const TextStyle(
-      color: Colors.white,
       fontWeight: FontWeight.w600,
       fontSize: 15,
-    ).liquidScale(context);
+    ).copyWith(color: theme.highlightColor).liquidScale(context);
     final subtitleStyle = TextStyle(
-      color: Colors.white.withValues(alpha: 0.65),
+      color: theme.highlightColor.withValues(alpha: 0.65),
       fontSize: 12,
     ).liquidScale(context);
 
@@ -43,6 +43,7 @@ class LiquidGlassListTile extends StatelessWidget {
       onPressed: onTap,
       child: LiquidGlassCard(
         borderRadius: BorderRadius.circular(14),
+        blurMode: blurMode,
         padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
         child: Row(
           children: [
@@ -57,8 +58,11 @@ class LiquidGlassListTile extends StatelessWidget {
               ),
             ),
             trailing ??
-                const Icon(CupertinoIcons.chevron_right,
-                    size: 16, color: Colors.white),
+                Icon(
+                  CupertinoIcons.chevron_right,
+                  size: 16,
+                  color: theme.highlightColor,
+                ),
           ],
         ),
       ),
