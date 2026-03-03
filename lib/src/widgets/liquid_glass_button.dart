@@ -29,6 +29,12 @@ class LiquidGlassButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.liquidGlassTheme;
+    final resolvedAlignment = alignment.resolve(Directionality.of(context));
+    final expandedMainAxisAlignment = resolvedAlignment.x < -0.33
+        ? MainAxisAlignment.start
+        : resolvedAlignment.x > 0.33
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.center;
     final primary = variant == LiquidGlassButtonVariant.primary;
     final fg = primary
         ? theme.highlightColor
@@ -42,9 +48,13 @@ class LiquidGlassButton extends StatelessWidget {
 
     final childRow = Row(
       mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
-      mainAxisAlignment: expanded ? MainAxisAlignment.center : MainAxisAlignment.start,
+      mainAxisAlignment:
+          expanded ? expandedMainAxisAlignment : MainAxisAlignment.start,
       children: [
-      if (leading != null) ...[leading!, SizedBox(width: LiquidSizes.spacingSm)],
+        if (leading != null) ...[
+          leading!,
+          SizedBox(width: LiquidSizes.spacingSm),
+        ],
         Text(
           label,
           style: labelStyle,
@@ -74,12 +84,7 @@ class LiquidGlassButton extends StatelessWidget {
       padding: EdgeInsets.zero,
       minimumSize: Size.zero,
       onPressed: onPressed,
-      child: expanded
-          ? SizedBox(
-              width: double.infinity,
-              child: Align(alignment: alignment, child: base),
-            )
-          : base,
+      child: expanded ? SizedBox(width: double.infinity, child: base) : base,
     );
   }
 }

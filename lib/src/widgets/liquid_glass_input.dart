@@ -71,7 +71,7 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
 
     Widget? effectiveSuffix = widget.suffix;
     if (widget.showPasswordToggle) {
-      effectiveSuffix = CupertinoButton(
+      final toggle = CupertinoButton(
         padding: EdgeInsets.zero,
         minimumSize: Size.zero,
         onPressed: () => setState(() => _isObscured = !_isObscured),
@@ -81,6 +81,18 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
           color: theme.highlightColor.withValues(alpha: 0.9),
         ),
       );
+      if (widget.suffix == null) {
+        effectiveSuffix = toggle;
+      } else {
+        effectiveSuffix = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            widget.suffix!,
+            SizedBox(width: LiquidSizes.spacingSm),
+            toggle,
+          ],
+        );
+      }
     }
 
     return LiquidGlassCard(
@@ -89,7 +101,10 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
       padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
       child: Row(
         children: [
-          if (widget.prefix != null) ...[widget.prefix!, SizedBox(width: LiquidSizes.spacingSm)],
+          if (widget.prefix != null) ...[
+            widget.prefix!,
+            SizedBox(width: LiquidSizes.spacingSm),
+          ],
           Expanded(
             child: CupertinoTextField(
               controller: widget.controller,
@@ -106,7 +121,10 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
               onTap: widget.onTap,
             ),
           ),
-          if (effectiveSuffix != null) ...[SizedBox(width: LiquidSizes.spacingSm), effectiveSuffix],
+          if (effectiveSuffix != null) ...[
+            SizedBox(width: LiquidSizes.spacingSm),
+            effectiveSuffix,
+          ],
         ],
       ),
     );

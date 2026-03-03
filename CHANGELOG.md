@@ -1,5 +1,13 @@
 ## 1.2.0
 
+- Fixed bottom-nav active capsule width calculation for cleaner alignment.
+- Added safe default height when using `LiquidGlassBottomNavBar` directly.
+- Removed global responsive side effect from `LiquidResponsive.screenTypeOf(...)` to avoid cross-tree sizing mutation.
+- Improved `LiquidGlassButton(expanded: true)` so `alignment` now affects content position (start/center/end).
+- Improved `LiquidGlassInput` so custom `suffix` and password toggle can be shown together.
+- Replaced internal barrel self-import in bottom-nav scaffold with package-local imports.
+- Added tests for direct bottom-nav usage and input suffix + password-toggle behavior.
+
 - Added performance blur modes with global + per-widget controls:
   - `LiquidBlurMode.real` (uses `BackdropFilter`)
   - `LiquidBlurMode.fake` (no `BackdropFilter`)

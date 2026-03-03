@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:glovex_liquid_ui/glovex_liquid_ui.dart';
+
+import '../foundation/liquid_responsive_tokens.dart';
+import 'liquid_glass_bottom_nav_bar.dart';
 
 /// A simple shell scaffold that keeps the bottom nav fixed and only switches
 /// the content area. Useful when you don't use a router.
@@ -79,12 +81,19 @@ class LiquidBottomNavScaffold extends StatelessWidget {
               items: items,
               onTap: onTap,
               height: navHeight ?? LiquidSizes.bottomNavHeight,
-              margin: navMargin ?? EdgeInsets.fromLTRB(LiquidSizes.bottomNavMarginHorizontal, 0, LiquidSizes.bottomNavMarginHorizontal, LiquidSizes.bottomNavMarginBottom),
+              margin: navMargin ??
+                  EdgeInsets.fromLTRB(
+                      LiquidSizes.bottomNavMarginHorizontal,
+                      0,
+                      LiquidSizes.bottomNavMarginHorizontal,
+                      LiquidSizes.bottomNavMarginBottom),
               activeColor: navActiveColor,
               inactiveColor: navInactiveColor,
               animationDuration: navAnimationDuration,
-              borderRadius: navBorderRadius ?? BorderRadius.all(Radius.circular(LiquidSizes.radiusXl)),
-              activatorRadius: navActivatorRadius ?? BorderRadius.all(Radius.circular(LiquidSizes.radiusLg)),
+              borderRadius: navBorderRadius ??
+                  BorderRadius.all(Radius.circular(LiquidSizes.radiusXl)),
+              activatorRadius: navActivatorRadius ??
+                  BorderRadius.all(Radius.circular(LiquidSizes.radiusLg)),
             ),
           ],
         ),

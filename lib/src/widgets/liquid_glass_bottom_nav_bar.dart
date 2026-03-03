@@ -47,20 +47,23 @@ class LiquidGlassBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = CupertinoTheme.of(context).brightness == Brightness.dark;
+    final resolvedHeight = height ?? LiquidSizes.bottomNavHeight;
     final resolvedInactiveColor = inactiveColor ??
         (isDark ? Colors.white.withAlpha(150) : Colors.black.withAlpha(140));
 
     return Padding(
       padding: margin,
       child: SizedBox(
-        height: height,
+        height: resolvedHeight,
         child: LiquidGlassCard(
           blurMode: LiquidBlurMode.real,
           borderRadius: borderRadius,
-          padding: EdgeInsets.symmetric(horizontal: LiquidSizes.spacingSm, vertical: LiquidSizes.spacingXs),
+          padding: EdgeInsets.symmetric(
+              horizontal: LiquidSizes.spacingSm,
+              vertical: LiquidSizes.spacingXs),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final itemWidth = (constraints.maxWidth - (LiquidSizes.spacingSm + LiquidSizes.spacingXs)) / items.length;
+              final itemWidth = constraints.maxWidth / items.length;
 
               return Stack(
                 children: [

@@ -16,7 +16,6 @@ class LiquidResponsive {
 
   static LiquidScreenType screenTypeOf(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    LiquidSizes.updateScale(width);
     if (width <= LiquidBreakpoints.mobileMaxWidth) {
       return LiquidScreenType.mobile;
     }

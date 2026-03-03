@@ -1,4 +1,5 @@
 import 'package:glovex_liquid_ui/glovex_liquid_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -123,5 +124,64 @@ void main() {
 
     await tester.pump();
     expect(find.byType(BackdropFilter), findsNothing);
+  });
+
+  testWidgets(
+      'LiquidGlassBottomNavBar has safe default height when used directly',
+      (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Align(
+            alignment: Alignment.bottomCenter,
+            child: LiquidGlassBottomNavBar(
+              currentIndex: 0,
+              onTap: (_) {},
+              margin: EdgeInsets.zero,
+              items: const [
+                LiquidGlassBottomNavItem(
+                  icon: Icons.home_outlined,
+                  label: 'Home',
+                ),
+                LiquidGlassBottomNavItem(
+                  icon: Icons.person_outline,
+                  label: 'Profile',
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('LiquidGlassInput keeps suffix when password toggle is enabled',
+      (tester) async {
+    final controller = TextEditingController();
+    addTearDown(controller.dispose);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: LiquidGlassInput(
+            controller: controller,
+            suffix: const Icon(Icons.clear),
+            showPasswordToggle: true,
+            obscureText: true,
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.byIcon(Icons.clear), findsOneWidget);
+    expect(find.byIcon(CupertinoIcons.eye_slash), findsOneWidget);
+
+    await tester.tap(find.byIcon(CupertinoIcons.eye_slash));
+    await tester.pump();
+    expect(find.byIcon(CupertinoIcons.eye), findsOneWidget);
   });
 }
