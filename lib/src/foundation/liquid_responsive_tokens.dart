@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 import 'glass_tokens.dart';
 
 class LiquidTextScaleTokens {
@@ -8,21 +10,38 @@ class LiquidTextScaleTokens {
   static const double textScaleDesktop = 1.15;
 }
 
-/// Centralized sizing constants with a global scale factor.
+/// Centralized sizing constants with a responsive scale factor.
+///
+/// Scale is auto-derived from the active view width, but can still be
+/// overridden temporarily via [updateScale] for backward compatibility.
 abstract final class LiquidSizes {
-  static double scale = 1.0;
+  static double? _manualScale;
 
   static const double mobileBreakpoint = 600;
   static const double tabletBreakpoint = 1200;
 
+  static double get scale =>
+      _manualScale ?? _scaleForWidth(_currentLogicalWidth);
+
   static void updateScale(double width) {
-    if (width < mobileBreakpoint) {
-      scale = 1.0;
-    } else if (width < tabletBreakpoint) {
-      scale = 1.2;
-    } else {
-      scale = 1.4;
-    }
+    _manualScale = _scaleForWidth(width);
+  }
+
+  static void clearManualScale() {
+    _manualScale = null;
+  }
+
+  static double _scaleForWidth(double width) {
+    if (width < mobileBreakpoint) return 1.0;
+    if (width < tabletBreakpoint) return 1.2;
+    return 1.4;
+  }
+
+  static double get _currentLogicalWidth {
+    final dispatcher = WidgetsBinding.instance.platformDispatcher;
+    if (dispatcher.views.isEmpty) return mobileBreakpoint;
+    final view = dispatcher.views.first;
+    return view.physicalSize.width / view.devicePixelRatio;
   }
 
   static double get pagePadding => LiquidSpacing.lg * scale;
@@ -62,7 +81,7 @@ abstract final class LiquidSizes {
   static double get bottomNavHeight => 74 * scale;
   static double get bottomNavMarginHorizontal => 14 * scale;
   static double get bottomNavMarginBottom => 14 * scale;
-  
+
   // Icon button and control sizes
   static double get iconButtonSize => 42 * scale;
   static double get radioSize => 22 * scale;

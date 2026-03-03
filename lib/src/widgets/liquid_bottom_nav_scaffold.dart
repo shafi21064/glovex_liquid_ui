@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'liquid_glass_bottom_nav_bar.dart';
+import 'package:glovex_liquid_ui/glovex_liquid_ui.dart';
 
 /// A simple shell scaffold that keeps the bottom nav fixed and only switches
 /// the content area. Useful when you don't use a router.
@@ -15,13 +13,13 @@ class LiquidBottomNavScaffold extends StatelessWidget {
     this.preserveState = true,
     this.padding,
     this.background,
-    this.navHeight = 74,
-    this.navMargin = const EdgeInsets.fromLTRB(14, 0, 14, 14),
+    this.navHeight,
+    this.navMargin,
     this.navActiveColor = Colors.white,
     this.navInactiveColor,
     this.navAnimationDuration = const Duration(milliseconds: 280),
-    this.navBorderRadius = const BorderRadius.all(Radius.circular(26)),
-    this.navActivatorRadius = const BorderRadius.all(Radius.circular(18)),
+    this.navBorderRadius,
+    this.navActivatorRadius,
   })  : routerChild = null,
         assert(items.length == children.length,
             'items and children length must be equal.');
@@ -35,13 +33,13 @@ class LiquidBottomNavScaffold extends StatelessWidget {
     required this.routerChild,
     this.padding,
     this.background,
-    this.navHeight = 74,
-    this.navMargin = const EdgeInsets.fromLTRB(14, 0, 14, 14),
+    this.navHeight,
+    this.navMargin,
     this.navActiveColor = Colors.white,
     this.navInactiveColor,
     this.navAnimationDuration = const Duration(milliseconds: 280),
-    this.navBorderRadius = const BorderRadius.all(Radius.circular(26)),
-    this.navActivatorRadius = const BorderRadius.all(Radius.circular(18)),
+    this.navBorderRadius,
+    this.navActivatorRadius,
   })  : children = const [],
         preserveState = false;
 
@@ -53,13 +51,13 @@ class LiquidBottomNavScaffold extends StatelessWidget {
   final bool preserveState;
   final EdgeInsetsGeometry? padding;
   final Widget? background;
-  final double navHeight;
-  final EdgeInsetsGeometry navMargin;
+  final double? navHeight;
+  final EdgeInsetsGeometry? navMargin;
   final Color navActiveColor;
   final Color? navInactiveColor;
   final Duration navAnimationDuration;
-  final BorderRadius navBorderRadius;
-  final BorderRadius navActivatorRadius;
+  final BorderRadius? navBorderRadius;
+  final BorderRadius? navActivatorRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -80,13 +78,13 @@ class LiquidBottomNavScaffold extends StatelessWidget {
               currentIndex: currentIndex,
               items: items,
               onTap: onTap,
-              height: navHeight,
-              margin: navMargin,
+              height: navHeight ?? LiquidSizes.bottomNavHeight,
+              margin: navMargin ?? EdgeInsets.fromLTRB(LiquidSizes.bottomNavMarginHorizontal, 0, LiquidSizes.bottomNavMarginHorizontal, LiquidSizes.bottomNavMarginBottom),
               activeColor: navActiveColor,
               inactiveColor: navInactiveColor,
               animationDuration: navAnimationDuration,
-              borderRadius: navBorderRadius,
-              activatorRadius: navActivatorRadius,
+              borderRadius: navBorderRadius ?? BorderRadius.all(Radius.circular(LiquidSizes.radiusXl)),
+              activatorRadius: navActivatorRadius ?? BorderRadius.all(Radius.circular(LiquidSizes.radiusLg)),
             ),
           ],
         ),
