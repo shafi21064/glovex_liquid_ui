@@ -28,13 +28,13 @@ class LiquidGlassListTile extends StatelessWidget {
     final theme = context.liquidGlassTheme;
     final hp = LiquidSizes.listTilePaddingHorizontal;
     final vp = LiquidSizes.listTilePaddingVertical;
-    final titleStyle = const TextStyle(
+    final titleStyle = TextStyle(
       fontWeight: FontWeight.w600,
-      fontSize: 15,
+      fontSize: LiquidSizes.bodySize,
     ).copyWith(color: theme.highlightColor).liquidScale(context);
     final subtitleStyle = TextStyle(
       color: theme.highlightColor.withValues(alpha: 0.65),
-      fontSize: 12,
+      fontSize: LiquidSizes.smallSize,
     ).liquidScale(context);
 
     return CupertinoButton(
@@ -42,12 +42,12 @@ class LiquidGlassListTile extends StatelessWidget {
       minimumSize: Size.zero,
       onPressed: onTap,
       child: LiquidGlassCard(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
         blurMode: blurMode,
         padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
         child: Row(
           children: [
-            if (leading != null) ...[leading!, const SizedBox(width: 10)],
+            if (leading != null) ...[leading!, SizedBox(width: LiquidSizes.spacingSm)],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class LiquidGlassListTile extends StatelessWidget {
             trailing ??
                 Icon(
                   CupertinoIcons.chevron_right,
-                  size: 16,
+                  size: LiquidSizes.iconSm,
                   color: theme.highlightColor,
                 ),
           ],

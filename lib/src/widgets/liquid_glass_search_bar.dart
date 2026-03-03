@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'liquid_glass_input.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassSearchBar extends StatelessWidget {
   const LiquidGlassSearchBar({
@@ -19,7 +20,7 @@ class LiquidGlassSearchBar extends StatelessWidget {
     return LiquidGlassInput(
       controller: controller,
       placeholder: placeholder,
-      prefix: const Icon(CupertinoIcons.search, size: 18),
+      prefix: Icon(CupertinoIcons.search, size: LiquidSizes.iconSm),
       onChanged: onChanged,
     );
   }

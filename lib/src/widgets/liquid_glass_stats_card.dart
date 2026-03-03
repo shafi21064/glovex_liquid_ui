@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassStatsCard extends StatelessWidget {
   const LiquidGlassStatsCard({
@@ -21,15 +22,15 @@ class LiquidGlassStatsCard extends StatelessWidget {
     final theme = context.liquidGlassTheme;
     final labelStyle = TextStyle(
       color: theme.highlightColor.withValues(alpha: 0.75),
-      fontSize: 13,
+      fontSize: LiquidSizes.labelSize,
     ).liquidScale(context);
-    final valueStyle = const TextStyle(
-      fontSize: 24,
+    final valueStyle = TextStyle(
+      fontSize: LiquidSizes.titleSize,
       fontWeight: FontWeight.w700,
     ).copyWith(color: theme.highlightColor).liquidScale(context);
     final trendStyle = TextStyle(
       color: theme.highlightColor.withValues(alpha: 0.85),
-      fontSize: 13,
+      fontSize: LiquidSizes.labelSize,
     ).liquidScale(context);
 
     return LiquidGlassCard(
@@ -38,10 +39,10 @@ class LiquidGlassStatsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label, style: labelStyle),
-          const SizedBox(height: 6),
+          SizedBox(height: LiquidSizes.spacingSm),
           Text(value, style: valueStyle),
           if (trend != null) ...[
-            const SizedBox(height: 4),
+            SizedBox(height: LiquidSizes.spacingXs),
             Text(trend!, style: trendStyle),
           ],
         ],

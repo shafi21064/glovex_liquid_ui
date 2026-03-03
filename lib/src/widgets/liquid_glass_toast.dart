@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassToast {
   static void show(
@@ -19,8 +20,8 @@ class LiquidGlassToast {
           color: Colors.transparent,
           child: LiquidGlassCard(
             blurMode: LiquidBlurMode.real,
-            borderRadius: BorderRadius.circular(14),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
+            padding: EdgeInsets.symmetric(horizontal: LiquidSizes.spacingMd, vertical: LiquidSizes.spacingSm),
             child: Text(
               message,
               textAlign: TextAlign.center,

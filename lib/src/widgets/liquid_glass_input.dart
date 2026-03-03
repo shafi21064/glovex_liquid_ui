@@ -62,11 +62,11 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
     final vp = LiquidSizes.inputPaddingVertical;
     final textStyle = TextStyle(
       color: theme.highlightColor,
-      fontSize: 14,
+      fontSize: LiquidSizes.labelSize,
     ).liquidScale(context);
     final placeholderStyle = TextStyle(
       color: theme.highlightColor.withValues(alpha: 0.6),
-      fontSize: 14,
+      fontSize: LiquidSizes.labelSize,
     ).liquidScale(context);
 
     Widget? effectiveSuffix = widget.suffix;
@@ -77,7 +77,7 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
         onPressed: () => setState(() => _isObscured = !_isObscured),
         child: Icon(
           _isObscured ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
-          size: 18,
+          size: LiquidSizes.iconSm,
           color: theme.highlightColor.withValues(alpha: 0.9),
         ),
       );
@@ -85,11 +85,11 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
 
     return LiquidGlassCard(
       blurMode: LiquidBlurMode.real,
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
       padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
       child: Row(
         children: [
-          if (widget.prefix != null) ...[widget.prefix!, const SizedBox(width: 8)],
+          if (widget.prefix != null) ...[widget.prefix!, SizedBox(width: LiquidSizes.spacingSm)],
           Expanded(
             child: CupertinoTextField(
               controller: widget.controller,
@@ -106,7 +106,7 @@ class _LiquidGlassInputState extends State<LiquidGlassInput> {
               onTap: widget.onTap,
             ),
           ),
-          if (effectiveSuffix != null) ...[const SizedBox(width: 8), effectiveSuffix],
+          if (effectiveSuffix != null) ...[SizedBox(width: LiquidSizes.spacingSm), effectiveSuffix],
         ],
       ),
     );

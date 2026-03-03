@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../foundation/liquid_glass_theme.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 import 'liquid_glass_card.dart';
 
 class LiquidGlassBottomNavItem {
@@ -22,26 +23,26 @@ class LiquidGlassBottomNavBar extends StatelessWidget {
     required this.currentIndex,
     required this.items,
     required this.onTap,
-    this.height = 74,
-    this.margin = const EdgeInsets.fromLTRB(14, 0, 14, 14),
+    required this.margin,
+    this.height,
     this.activeColor = Colors.white,
     this.inactiveColor,
     this.animationDuration = const Duration(milliseconds: 280),
-    this.borderRadius = const BorderRadius.all(Radius.circular(26)),
-    this.activatorRadius = const BorderRadius.all(Radius.circular(18)),
+    this.borderRadius,
+    this.activatorRadius,
   }) : assert(items.length > 1, 'At least two bottom-nav items are required.');
 
   final int currentIndex;
   final List<LiquidGlassBottomNavItem> items;
   final ValueChanged<int> onTap;
 
-  final double height;
+  final double? height;
   final EdgeInsetsGeometry margin;
   final Color activeColor;
   final Color? inactiveColor;
   final Duration animationDuration;
-  final BorderRadius borderRadius;
-  final BorderRadius activatorRadius;
+  final BorderRadius? borderRadius;
+  final BorderRadius? activatorRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +57,10 @@ class LiquidGlassBottomNavBar extends StatelessWidget {
         child: LiquidGlassCard(
           blurMode: LiquidBlurMode.real,
           borderRadius: borderRadius,
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+          padding: EdgeInsets.symmetric(horizontal: LiquidSizes.spacingSm, vertical: LiquidSizes.spacingXs),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final itemWidth = (constraints.maxWidth - 10) / items.length;
+              final itemWidth = (constraints.maxWidth - (LiquidSizes.spacingSm + LiquidSizes.spacingXs)) / items.length;
 
               return Stack(
                 children: [
@@ -154,15 +155,15 @@ class _NavItem extends StatelessWidget {
               children: [
                 Icon(
                   selected && activeIcon != null ? activeIcon : icon,
-                  size: selected ? 21 : 20,
+                  size: selected ? LiquidSizes.iconMd : LiquidSizes.iconSm,
                   color: color,
                 ),
-                const SizedBox(height: 3),
+                SizedBox(height: LiquidSizes.spacingXs),
                 AnimatedDefaultTextStyle(
                   duration: animationDuration,
                   curve: Curves.easeOutCubic,
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: LiquidSizes.smallSize,
                     fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
                     color: color,
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassDropdown<T> extends StatelessWidget {
   const LiquidGlassDropdown({
@@ -19,8 +20,8 @@ class LiquidGlassDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return LiquidGlassCard(
       blurMode: LiquidBlurMode.real,
-      borderRadius: BorderRadius.circular(14),
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
+      padding: EdgeInsets.symmetric(horizontal: LiquidSizes.spacingSm),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<T>(
           dropdownColor: Colors.black.withValues(alpha: 0.85),

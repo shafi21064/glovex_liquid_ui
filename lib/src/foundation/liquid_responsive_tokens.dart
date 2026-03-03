@@ -58,6 +58,16 @@ abstract final class LiquidSizes {
   static double get listTilePaddingVertical => 9 * scale;
   static double get sectionContentGap => 10 * scale;
 
+  // Bottom navigation defaults
+  static double get bottomNavHeight => 74 * scale;
+  static double get bottomNavMarginHorizontal => 14 * scale;
+  static double get bottomNavMarginBottom => 14 * scale;
+  
+  // Icon button and control sizes
+  static double get iconButtonSize => 42 * scale;
+  static double get radioSize => 22 * scale;
+  static double get radioInnerSize => 10 * scale;
+
   static double get radiusSm => LiquidRadius.sm * scale;
   static double get radiusMd => LiquidRadius.md * scale;
   static double get radiusLg => LiquidRadius.lg * scale;

@@ -22,13 +22,13 @@ class LiquidGlassSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.liquidGlassTheme;
-    final titleStyle = const TextStyle(
+    final titleStyle = TextStyle(
       fontWeight: FontWeight.w700,
-      fontSize: 17,
+      fontSize: LiquidSizes.titleSize,
     ).copyWith(color: theme.highlightColor).liquidScale(context);
     final subtitleStyle = TextStyle(
       color: theme.highlightColor.withValues(alpha: 0.7),
-      fontSize: 13,
+      fontSize: LiquidSizes.labelSize,
     ).liquidScale(context);
     final gap = LiquidSizes.sectionContentGap;
 
@@ -39,7 +39,7 @@ class LiquidGlassSection extends StatelessWidget {
         children: [
           Text(title, style: titleStyle),
           if (subtitle != null) ...[
-            const SizedBox(height: 4),
+            SizedBox(height: LiquidSizes.spacingXs),
             Text(subtitle!, style: subtitleStyle),
           ],
           SizedBox(height: gap),

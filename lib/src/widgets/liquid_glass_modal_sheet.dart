@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassModalSheet extends StatelessWidget {
   const LiquidGlassModalSheet({super.key, required this.child});
@@ -25,8 +26,8 @@ class LiquidGlassModalSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return LiquidGlassCard(
       blurMode: LiquidBlurMode.real,
-      borderRadius: BorderRadius.circular(24),
-      padding: const EdgeInsets.all(16),
+      borderRadius: BorderRadius.circular(LiquidSizes.radiusXl),
+      padding: EdgeInsets.all(LiquidSizes.spacingMd),
       child: child,
     );
   }

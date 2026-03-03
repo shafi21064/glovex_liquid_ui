@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
@@ -36,17 +35,16 @@ class LiquidGlassButton extends StatelessWidget {
         : theme.highlightColor.withValues(alpha: 0.9);
     final hp = LiquidSizes.buttonPaddingHorizontal;
     final vp = LiquidSizes.buttonPaddingVertical;
-    final labelStyle = const TextStyle(
-      color: Colors.white,
+    final labelStyle = TextStyle(
       fontWeight: FontWeight.w600,
-      fontSize: 15,
+      fontSize: LiquidSizes.labelSize,
     ).copyWith(color: fg).liquidScale(context);
 
     final childRow = Row(
       mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
       mainAxisAlignment: expanded ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
-        if (leading != null) ...[leading!, const SizedBox(width: 8)],
+      if (leading != null) ...[leading!, SizedBox(width: LiquidSizes.spacingSm)],
         Text(
           label,
           style: labelStyle,
@@ -57,13 +55,13 @@ class LiquidGlassButton extends StatelessWidget {
     final base = primary
         ? LiquidGlassCard(
             blurMode: LiquidBlurMode.real,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
             padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
             shrinkWrap: !expanded,
             child: childRow,
           )
         : LiquidGlassSurface(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
             enableBlur: false,
             blurMode: LiquidBlurMode.fake,
             borderColor: theme.borderColor.withValues(alpha: 0.35),

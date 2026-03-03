@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../foundation/liquid_responsive_tokens.dart';
+
 class LiquidGlassRadio<T> extends StatelessWidget {
   const LiquidGlassRadio({
     super.key,
@@ -22,13 +24,13 @@ class LiquidGlassRadio<T> extends StatelessWidget {
       minimumSize: Size.zero,
       onPressed: () => onChanged(value),
       child: Container(
-        width: 22,
-        height: 22,
+        width: LiquidSizes.radioSize,
+        height: LiquidSizes.radioSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
             color: Colors.white.withValues(alpha: 0.9),
-            width: 1.8,
+            width: LiquidSizes.loadingStrokeWidth,
           ),
           color: selected
               ? Colors.white.withValues(alpha: 0.2)
@@ -37,8 +39,8 @@ class LiquidGlassRadio<T> extends StatelessWidget {
         child: selected
             ? Center(
                 child: Container(
-                  width: 10,
-                  height: 10,
+                  width: LiquidSizes.radioInnerSize,
+                  height: LiquidSizes.radioInnerSize,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,

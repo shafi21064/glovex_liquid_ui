@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassLoader extends StatelessWidget {
   const LiquidGlassLoader({super.key, this.label});
@@ -14,20 +15,20 @@ class LiquidGlassLoader extends StatelessWidget {
     final theme = context.liquidGlassTheme;
     final labelStyle = TextStyle(
       color: theme.highlightColor,
-      fontSize: 14,
+      fontSize: LiquidSizes.labelSize,
     ).liquidScale(context);
 
     return LiquidGlassCard(
       blurMode: LiquidBlurMode.real,
-      borderRadius: BorderRadius.circular(16),
-      padding: const EdgeInsets.all(16),
+      borderRadius: BorderRadius.circular(LiquidSizes.radiusLg),
+      padding: EdgeInsets.all(LiquidSizes.spacingMd),
       shrinkWrap: true,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           CupertinoActivityIndicator(color: theme.highlightColor),
           if (label != null) ...[
-            const SizedBox(width: 10),
+            SizedBox(width: LiquidSizes.spacingSm),
             Text(label!, style: labelStyle),
           ],
         ],

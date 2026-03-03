@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'liquid_glass_bottom_nav_bar.dart';
@@ -67,29 +68,27 @@ class LiquidBottomNavScaffold extends StatelessWidget {
     return Stack(
       children: [
         if (background != null) Positioned.fill(child: background!),
-        SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: padding ?? EdgeInsets.zero,
-                  child: body,
-                ),
+        Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: padding ?? EdgeInsets.zero,
+                child: body,
               ),
-              LiquidGlassBottomNavBar(
-                currentIndex: currentIndex,
-                items: items,
-                onTap: onTap,
-                height: navHeight,
-                margin: navMargin,
-                activeColor: navActiveColor,
-                inactiveColor: navInactiveColor,
-                animationDuration: navAnimationDuration,
-                borderRadius: navBorderRadius,
-                activatorRadius: navActivatorRadius,
-              ),
-            ],
-          ),
+            ),
+            LiquidGlassBottomNavBar(
+              currentIndex: currentIndex,
+              items: items,
+              onTap: onTap,
+              height: navHeight,
+              margin: navMargin,
+              activeColor: navActiveColor,
+              inactiveColor: navInactiveColor,
+              animationDuration: navAnimationDuration,
+              borderRadius: navBorderRadius,
+              activatorRadius: navActivatorRadius,
+            ),
+          ],
         ),
       ],
     );

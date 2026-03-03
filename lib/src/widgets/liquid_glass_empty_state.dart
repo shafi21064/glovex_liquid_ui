@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../foundation/liquid_glass_theme.dart';
 import 'liquid_glass_card.dart';
+import '../foundation/liquid_responsive_tokens.dart';
 
 class LiquidGlassEmptyState extends StatelessWidget {
   const LiquidGlassEmptyState({
@@ -24,19 +25,18 @@ class LiquidGlassEmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          icon ??
-              const Icon(Icons.inbox_outlined, color: Colors.white, size: 32),
-          const SizedBox(height: 10),
+          icon ?? Icon(Icons.inbox_outlined, color: Colors.white, size: LiquidSizes.iconXl),
+          SizedBox(height: LiquidSizes.spacingSm),
           Text(title,
               style: const TextStyle(
                   color: Colors.white, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 4),
+          SizedBox(height: LiquidSizes.spacingXs),
           Text(
             message,
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white.withValues(alpha: 0.7)),
           ),
-          if (action != null) ...[const SizedBox(height: 12), action!],
+          if (action != null) ...[SizedBox(height: LiquidSizes.spacingMd), action!],
         ],
       ),
     );
