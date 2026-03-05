@@ -1,3 +1,16 @@
+## 1.2.2
+
+- Refined package metadata for pub.dev discoverability:
+  - Updated package description with clear niche positioning.
+  - Improved pub.dev topics (`go-router`, `ui-kit`) for better search matching.
+- Added live demo visibility improvements:
+  - Homepage now points to the live showcase URL.
+  - README includes direct live demo link near the top.
+- Improved README for adoption and SEO:
+  - Added concise sections: `Why this package`, `When to use fake vs real blur`, `GoRouter quick setup`, and `Production tips`.
+  - Updated table of contents to include new sections.
+  - Synced installation snippet to `^1.2.2`.
+
 ## 1.2.1
 
 - Improved API documentation coverage by adding dartdoc comments to key public APIs:

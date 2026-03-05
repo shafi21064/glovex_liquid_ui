@@ -1,8 +1,12 @@
 # glovex_liquid_ui
 
+Liquid glass + bottom nav + responsive + go_router ready.
+
 `glovex_liquid_ui` is a reusable Flutter UI widget kit for liquid-glass apps, with built-in bottom navigation, responsive sizing, and theme extension support.
 
 Feature tags: `flutter ui`, `widgets`, `glassmorphism`, `bottom navigation`, `responsive`, `theming`, `go_router`.
+
+Live demo: [https://showcase.glovency.com/#/demo/glovex_liquid_ui](https://showcase.glovency.com/#/demo/glovex_liquid_ui)
 
 ## Table of Contents
 
@@ -10,6 +14,10 @@ Feature tags: `flutter ui`, `widgets`, `glassmorphism`, `bottom navigation`, `re
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Showcase](#showcase)
+- [Why this package](#why-this-package)
+- [When to use fake vs real blur](#when-to-use-fake-vs-real-blur)
+- [GoRouter quick setup](#gorouter-quick-setup)
+- [Production tips](#production-tips)
 - [Feature Highlights](#feature-highlights)
 - [Bottom Navigation](#bottom-navigation)
 - [Responsive System](#responsive-system)
@@ -27,7 +35,7 @@ Feature tags: `flutter ui`, `widgets`, `glassmorphism`, `bottom navigation`, `re
 
 ```yaml
 dependencies:
-  glovex_liquid_ui: ^1.2.1
+  glovex_liquid_ui: ^1.2.2
 ```
 
 ```dart
@@ -63,6 +71,30 @@ Recommended for best visuals:
     <td><img src="assets/gif/toast.gif" alt="Toast showcase" height="420" /></td>
   </tr>
 </table>
+
+## Why this package
+
+- **Niche positioning:** Liquid glass + bottom nav + responsive + go_router ready — built for apps that need polished glass UI with router-friendly tab navigation.
+- **Turnkey components:** Ready-made top bars, cards, inputs, and a bottom nav scaffold so you can ship screens quickly.
+- **Responsive-first:** Built-in `LiquidResponsive` sizing + text scaling reduces layout work across devices.
+
+## When to use fake vs real blur
+
+- **Fake blur:** Use in lists and repeated rows for performance (recommended default). Use `blurMode: LiquidBlurMode.fake`.
+- **Real blur:** Use sparingly (top bars, hero cards, modals) for premium visuals. Enable `LiquidBlurMode.real` only for focal surfaces.
+
+## GoRouter quick setup
+
+1. Define your tab paths: `final tabPaths = ['/home','/profile','/settings'];`
+2. Use `liquidTabIndexFromLocation(state.matchedLocation, tabPaths)` to compute current index.
+3. Wrap with `LiquidBottomNavScaffold.router` and call `liquidGoToTab(...)` from `onTap`.
+
+## Production tips
+
+- Keep lists using fake blur and only apply real blur on hero surfaces to save GPU.
+- Run `flutter analyze` and enable `flutter_lints` in CI to keep API stable and score high.
+- Add small, frequent releases (1–2 weeks) with clear changelog entries to improve trust.
+
 
 ## Feature Highlights
 
