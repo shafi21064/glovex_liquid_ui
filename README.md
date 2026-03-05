@@ -9,6 +9,7 @@ Feature tags: `flutter ui`, `widgets`, `glassmorphism`, `bottom navigation`, `re
 - [Compatibility](#compatibility)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [Showcase](#showcase)
 - [Feature Highlights](#feature-highlights)
 - [Bottom Navigation](#bottom-navigation)
 - [Responsive System](#responsive-system)
@@ -49,6 +50,16 @@ Recommended for best visuals:
 - Use a gradient or image background behind glass widgets.
 - Prefer light text/icons (`Colors.white`) on glass surfaces.
 - Build complex layouts with `LiquidGlassCard` and `LiquidGlassSection`.
+
+## Showcase
+
+![Navigation showcase](assets/gif/navigation.gif)
+
+![Inputs and controls showcase](assets/gif/inputs_controls.gif)
+
+![Feedback and state showcase](assets/gif/feedback_states.gif)
+
+![Toast showcase](assets/gif/toast.gif)
 
 ## Feature Highlights
 
