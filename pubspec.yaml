@@ -1,13 +1,24 @@
 name: glovex_liquid_ui
-description: A liquid-glass inspired Flutter UI kit with reusable widgets for production apps.
-version: 1.2.0
+description: Flutter liquid-glass UI widgets with bottom navigation, responsive sizing, go_router tab helpers, and extensible light/dark theming.
+version: 1.2.1
+
+# Key Highlights:
+# - Liquid-glass UI widget system
+# - Ready-to-use bottom navigation scaffold
+# - go_router tab navigation helpers
+# - Responsive sizing and text scaling
+# - ThemeExtension-based light/dark theming
+
 repository: https://github.com/shafi21064/glovex_liquid_ui
+homepage: https://github.com/shafi21064/glovex_liquid_ui
+documentation: https://github.com/shafi21064/glovex_liquid_ui/blob/main/README.md
+issue_tracker: https://github.com/shafi21064/glovex_liquid_ui/issues
 topics:
   - flutter
-  - widgets
-  - ui
+  - bottom-navigation
   - glassmorphism
-  - cupertino
+  - responsive
+  - theming
 
 environment:
   sdk: '>=3.3.0 <4.0.0'

@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 
 import 'glass_tokens.dart';
 
+/// Blur rendering strategy for glass widgets.
 enum LiquidBlurMode { real, fake }
 
+/// Theme extension that centralizes visual tokens for liquid-glass widgets.
+///
+/// Add an instance to `ThemeData.extensions` and read it via
+/// `context.liquidGlassTheme`.
 @immutable
 class LiquidGlassTheme extends ThemeExtension<LiquidGlassTheme> {
+  /// Creates a fully configured liquid-glass theme token set.
   const LiquidGlassTheme({
     required this.tintColor,
     required this.highlightColor,
@@ -24,22 +30,46 @@ class LiquidGlassTheme extends ThemeExtension<LiquidGlassTheme> {
     required this.shadowOpacity,
   });
 
+  /// Base tint color mixed into glass backgrounds.
   final Color tintColor;
+
+  /// Foreground/highlight color used for text and reflections.
   final Color highlightColor;
+
+  /// Border color used around glass surfaces.
   final Color borderColor;
+
+  /// Shadow color used for depth effects.
   final Color shadowColor;
 
+  /// Default corner radius for card-like widgets.
   final BorderRadius cardRadius;
+
+  /// Default corner radius for pill/capsule widgets.
   final BorderRadius capsuleRadius;
 
+  /// Global on/off switch for blur usage.
   final bool enableBlur;
+
+  /// Global blur rendering mode.
   final LiquidBlurMode blurMode;
+
+  /// Sigma value used when real blur is enabled.
   final double blurSigma;
+
+  /// Default border stroke width.
   final double borderWidth;
+
+  /// Default tint alpha multiplier.
   final double tintOpacity;
+
+  /// Default highlight alpha multiplier.
   final double highlightOpacity;
+
+  /// Default shadow alpha multiplier.
   final double shadowOpacity;
 
+  /// Preconfigured light appearance.
   factory LiquidGlassTheme.light({Color brandTint = Colors.white}) {
     return LiquidGlassTheme(
       tintColor: brandTint,
@@ -58,6 +88,7 @@ class LiquidGlassTheme extends ThemeExtension<LiquidGlassTheme> {
     );
   }
 
+  /// Preconfigured dark appearance.
   factory LiquidGlassTheme.dark({Color brandTint = Colors.white}) {
     return LiquidGlassTheme(
       tintColor: brandTint,
@@ -76,6 +107,8 @@ class LiquidGlassTheme extends ThemeExtension<LiquidGlassTheme> {
     );
   }
 
+  /// Resolves the nearest [LiquidGlassTheme] from context, or returns
+  /// a light/dark fallback if no extension is registered.
   static LiquidGlassTheme of(BuildContext context) {
     final theme = Theme.of(context).extension<LiquidGlassTheme>();
     if (theme != null) return theme;
@@ -143,5 +176,6 @@ class LiquidGlassTheme extends ThemeExtension<LiquidGlassTheme> {
 }
 
 extension LiquidGlassThemeContext on BuildContext {
+  /// Shortcut to read [LiquidGlassTheme.of].
   LiquidGlassTheme get liquidGlassTheme => LiquidGlassTheme.of(this);
 }

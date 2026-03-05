@@ -5,19 +5,28 @@ import '../foundation/liquid_glass_theme.dart';
 import '../foundation/liquid_responsive_tokens.dart';
 import 'liquid_glass_card.dart';
 
+/// Configuration model for one bottom navigation destination.
 class LiquidGlassBottomNavItem {
+  /// Creates one nav destination.
   const LiquidGlassBottomNavItem({
     required this.icon,
     required this.label,
     this.activeIcon,
   });
 
+  /// Default icon.
   final IconData icon;
+
+  /// Optional icon used while selected.
   final IconData? activeIcon;
+
+  /// Label shown below the icon.
   final String label;
 }
 
+/// Liquid-glass styled bottom navigation bar with animated active capsule.
 class LiquidGlassBottomNavBar extends StatelessWidget {
+  /// Creates a bottom navigation bar.
   const LiquidGlassBottomNavBar({
     super.key,
     required this.currentIndex,
@@ -32,16 +41,34 @@ class LiquidGlassBottomNavBar extends StatelessWidget {
     this.activatorRadius,
   }) : assert(items.length > 1, 'At least two bottom-nav items are required.');
 
+  /// Active tab index.
   final int currentIndex;
+
+  /// Destinations to render.
   final List<LiquidGlassBottomNavItem> items;
+
+  /// Called when a destination is tapped.
   final ValueChanged<int> onTap;
 
+  /// Explicit nav height. Defaults to [LiquidSizes.bottomNavHeight].
   final double? height;
+
+  /// Outer margin around the nav bar.
   final EdgeInsetsGeometry margin;
+
+  /// Selected icon/text color.
   final Color activeColor;
+
+  /// Unselected icon/text color.
   final Color? inactiveColor;
+
+  /// Duration for capsule and text/icon animations.
   final Duration animationDuration;
+
+  /// Radius for outer nav card.
   final BorderRadius? borderRadius;
+
+  /// Radius for animated active capsule.
   final BorderRadius? activatorRadius;
 
   @override

@@ -1,3 +1,13 @@
+## 1.2.1
+
+- Improved API documentation coverage by adding dartdoc comments to key public APIs:
+  - `LiquidGlassTheme` and `LiquidBlurMode`
+  - `LiquidBottomNavScaffold`
+  - `LiquidGlassBottomNavBar` and `LiquidGlassBottomNavItem`
+  - `LiquidGlassButton`
+  - `LiquidGlassInput`
+- This update targets pub.dev documentation scoring (`Provide documentation` check).
+
 ## 1.2.0
 
 - Fixed bottom-nav active capsule width calculation for cleaner alignment.

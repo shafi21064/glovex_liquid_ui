@@ -6,9 +6,12 @@ import '../foundation/liquid_responsive.dart';
 import '../foundation/liquid_responsive_tokens.dart';
 import 'liquid_glass_surface.dart';
 
+/// Visual style variants for [LiquidGlassButton].
 enum LiquidGlassButtonVariant { primary, ghost }
 
+/// A liquid-glass button with primary and ghost variants.
 class LiquidGlassButton extends StatelessWidget {
+  /// Creates a liquid-glass button.
   const LiquidGlassButton({
     super.key,
     required this.label,
@@ -19,11 +22,22 @@ class LiquidGlassButton extends StatelessWidget {
     this.alignment = Alignment.center,
   });
 
+  /// Button label text.
   final String label;
+
+  /// Optional widget shown before [label].
   final Widget? leading;
+
+  /// Tap callback. If null, the button is disabled.
   final VoidCallback? onPressed;
+
+  /// Visual variant of the button.
   final LiquidGlassButtonVariant variant;
+
+  /// Expands button width to fill parent constraints.
   final bool expanded;
+
+  /// Content alignment used when [expanded] is true.
   final AlignmentGeometry alignment;
 
   @override

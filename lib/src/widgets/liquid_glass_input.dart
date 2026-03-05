@@ -5,7 +5,9 @@ import 'liquid_glass_card.dart';
 import '../foundation/liquid_responsive.dart';
 import '../foundation/liquid_responsive_tokens.dart';
 
+/// Cupertino-style text input wrapped in a liquid-glass card.
 class LiquidGlassInput extends StatefulWidget {
+  /// Creates a liquid-glass input.
   const LiquidGlassInput({
     super.key,
     required this.controller,
@@ -21,16 +23,37 @@ class LiquidGlassInput extends StatefulWidget {
     this.onTap,
   });
 
+  /// Text editing controller.
   final TextEditingController controller;
+
+  /// Placeholder text shown when empty.
   final String? placeholder;
+
+  /// Optional leading widget.
   final Widget? prefix;
+
+  /// Optional trailing widget.
   final Widget? suffix;
+
+  /// Initial obscured state for secure text.
   final bool obscureText;
+
+  /// Shows a built-in eye toggle for secure text.
   final bool showPasswordToggle;
+
+  /// Keyboard type for the field.
   final TextInputType keyboardType;
+
+  /// IME action button (next, done, search, etc).
   final TextInputAction? textInputAction;
+
+  /// Callback when submitted from keyboard.
   final ValueChanged<String>? onSubmitted;
+
+  /// Callback for text changes.
   final ValueChanged<String>? onChanged;
+
+  /// Callback when input is tapped.
   final VoidCallback? onTap;
 
   @override

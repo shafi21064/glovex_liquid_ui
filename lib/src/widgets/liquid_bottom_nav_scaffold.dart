@@ -6,6 +6,7 @@ import 'liquid_glass_bottom_nav_bar.dart';
 /// A simple shell scaffold that keeps the bottom nav fixed and only switches
 /// the content area. Useful when you don't use a router.
 class LiquidBottomNavScaffold extends StatelessWidget {
+  /// Creates a tab scaffold for non-router apps.
   const LiquidBottomNavScaffold({
     super.key,
     required this.currentIndex,
@@ -26,7 +27,9 @@ class LiquidBottomNavScaffold extends StatelessWidget {
         assert(items.length == children.length,
             'items and children length must be equal.');
 
-  /// Router-friendly shell. Use this with `ShellRoute` child.
+  /// Creates a router-friendly shell using the active routed [routerChild].
+  ///
+  /// Use this with `ShellRoute` (for example in `go_router`).
   const LiquidBottomNavScaffold.router({
     super.key,
     required this.currentIndex,
@@ -45,20 +48,49 @@ class LiquidBottomNavScaffold extends StatelessWidget {
   })  : children = const [],
         preserveState = false;
 
+  /// Active tab index.
   final int currentIndex;
+
+  /// Called when a nav tab is tapped.
   final ValueChanged<int> onTap;
+
+  /// Bottom navigation item definitions.
   final List<LiquidGlassBottomNavItem> items;
+
+  /// Tab pages used by the non-router constructor.
   final List<Widget> children;
+
+  /// Routed child used by the router constructor.
   final Widget? routerChild;
+
+  /// Keeps non-router children alive with an [IndexedStack].
   final bool preserveState;
+
+  /// Optional body padding above the bottom nav.
   final EdgeInsetsGeometry? padding;
+
+  /// Optional full-screen background behind content and nav.
   final Widget? background;
+
+  /// Custom bottom-nav height.
   final double? navHeight;
+
+  /// External margin around the nav bar.
   final EdgeInsetsGeometry? navMargin;
+
+  /// Color for active nav item icon/text.
   final Color navActiveColor;
+
+  /// Color for inactive nav item icon/text.
   final Color? navInactiveColor;
+
+  /// Duration for nav animations.
   final Duration navAnimationDuration;
+
+  /// Custom border radius for the nav container.
   final BorderRadius? navBorderRadius;
+
+  /// Custom border radius for the moving active capsule.
   final BorderRadius? navActivatorRadius;
 
   @override

@@ -1,3 +1,7 @@
+// `glovex_liquid_ui` entrypoint.
+// Import this file to access all public widgets, responsive helpers,
+// theming APIs, and navigation utilities from the package.
+
 export 'src/foundation/glass_tokens.dart';
 export 'src/foundation/liquid_glass_theme.dart';
 export 'src/foundation/liquid_responsive.dart';
