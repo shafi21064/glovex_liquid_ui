@@ -55,12 +55,12 @@ Recommended for best visuals:
 
 <table>
   <tr>
-    <td><img src="assets/gif/navigation.gif" alt="Navigation showcase" height="280" /></td>
-    <td><img src="assets/gif/inputs_controls.gif" alt="Inputs and controls showcase" height="280" /></td>
+    <td><img src="assets/gif/navigation.gif" alt="Navigation showcase" height="360" /></td>
+    <td><img src="assets/gif/inputs_controls.gif" alt="Inputs and controls showcase" height="360" /></td>
   </tr>
   <tr>
-    <td><img src="assets/gif/feedback_states.gif" alt="Feedback and state showcase" height="280" /></td>
-    <td><img src="assets/gif/toast.gif" alt="Toast showcase" height="280" /></td>
+    <td><img src="assets/gif/feedback_states.gif" alt="Feedback and state showcase" height="360" /></td>
+    <td><img src="assets/gif/toast.gif" alt="Toast showcase" height="360" /></td>
   </tr>
 </table>
 
