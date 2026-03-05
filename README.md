@@ -53,13 +53,13 @@ Recommended for best visuals:
 
 ## Showcase
 
-![Navigation showcase](assets/gif/navigation.gif)
+<img src="assets/gif/navigation.gif" alt="Navigation showcase" height="360" />
 
-![Inputs and controls showcase](assets/gif/inputs_controls.gif)
+<img src="assets/gif/inputs_controls.gif" alt="Inputs and controls showcase" height="360" />
 
-![Feedback and state showcase](assets/gif/feedback_states.gif)
+<img src="assets/gif/feedback_states.gif" alt="Feedback and state showcase" height="360" />
 
-![Toast showcase](assets/gif/toast.gif)
+<img src="assets/gif/toast.gif" alt="Toast showcase" height="360" />
 
 ## Feature Highlights
 
